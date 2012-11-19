@@ -2,65 +2,67 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 body {
     background: #333;
-    padding: 100px 0;
     font-family: 'Helvetica Neue';
 }
 
-.board {
-    width: 750px;
-    height: 750px;
+board {
     position: absolute;
-    left: 50%;
+    display: block;
     top: 50%;
-    margin-left: -375px;
-    margin-top: -375px;
+    left: 50%;
 }
 
-.board .tile {
+tile {
     width: 50px;
     height: 50px;
     float: left;
+    background: hsl(0, 100%, 100%);
 }
-    .board .tile {
-        background: #fff;
+    tile:nth-of-type(2n) {
+        background: hsl(0, 0%, 90%);
     }
-    .board .tile:nth-of-type(2n) {
-        background: #ddd;
-    }
-    .board .tile.empty {
+    tile[filled='empty'] {
         background: transparent;
     }
-    .board .filled:hover {
-        background: hsl(195, 100%, 95%);
-        box-shadow: inset 0 0 15px hsla(195, 100%, 40%, .25);
+    tile[filled='filled']:hover {
         cursor: pointer;
+        background: hsl(0, 0%, 75%);
     }
-    .board .filled.selected {
-        background: hsl(195, 100%, 80%);
-        box-shadow: inset 0 0 15px hsla(195, 100%, 40%, .75);
+    tile[filled='filled'].selected {
+        background: hsl(210, 100%, 75%);
     }
-    .board .filled.valid {
-        background: hsl(105, 100%, 95%);
-        box-shadow: inset 0 0 15px hsla(105, 100%, 40%, .25);
+    .show_valid tile[filled='filled'].valid {
+        background: hsl(210, 100%, 95%);
     }
+        .show_valid tile:nth-of-type(2n)[filled='filled'].valid {
+            background: hsl(210, 90%, 90%);
+        }
+        .show_valid tile[filled='filled'].valid:hover {
+            background: hsl(80, 70%, 60%);
+        }
 
-.piece {
+piece {
     width: 50px;
     height: 50px;
     display: block;
     text-align: center;
     line-height: 50px;
-    font-size: 36px;
+    font-size: 40px;
 }
-    .piece.white.king:before   { content: '\2654'; }
-    .piece.white.queen:before  { content: '\2655'; }
-    .piece.white.rook:before   { content: '\2656'; }
-    .piece.white.bishop:before { content: '\2657'; }
-    .piece.white.knight:before { content: '\2658'; }
-    .piece.white.pawn:before   { content: '\2659'; }
-    .piece.black.king:before   { content: '\265A'; }
-    .piece.black.queen:before  { content: '\265B'; }
-    .piece.black.rook:before   { content: '\265C'; }
-    .piece.black.bishop:before { content: '\265D'; }
-    .piece.black.knight:before { content: '\265E'; }
-    .piece.black.pawn:before   { content: '\265F'; }
+    piece[color='white'].locked,
+    piece[color='black'].played {
+        opacity: .5 !important;
+    }
+    piece[color='white'][type='king']:before   { content: '\2654'; }
+    piece[color='white'][type='queen']:before  { content: '\2655'; }
+    piece[color='white'][type='rook']:before   { content: '\2656'; }
+    piece[color='white'][type='bishop']:before { content: '\2657'; }
+    piece[color='white'][type='knight']:before { content: '\2658'; }
+    piece[color='white'][type='pawn']:before   { content: '\2659'; }
+    piece[color='black'][type='king']:before   { content: '\265A'; }
+    piece[color='black'][type='queen']:before  { content: '\265B'; }
+    piece[color='black'][type='rook']:before   { content: '\265C'; }
+    piece[color='black'][type='bishop']:before { content: '\265D'; }
+    piece[color='black'][type='knight']:before { content: '\265E'; }
+    piece[color='black'][type='pawn']:before   { content: '\265F'; }
+

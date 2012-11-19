@@ -1,13 +1,48 @@
 import os
 from flask import Flask
 from flask import render_template
+from random import randint
+
 
 app = Flask(__name__)
 
-def get_board(filename):
-    board = []
 
-    template = open(filename)
+pieces = {
+    'k': 'king',
+    'q': 'queen',
+    'r': 'rook',
+    'b': 'bishop',
+    'n': 'knight',
+    'p': 'pawn'
+}
+
+
+def get_templates(filename):
+    ''' Takes a file and returns a list of templates (represented as lists of strings) '''
+
+    templates = {}
+
+    file = open(filename)
+
+    i = 1
+    templates[i] = []
+    for line in file:
+        if line == '\n':
+            i = i + 1
+            templates[i] = []
+        else:
+            line = line.rstrip()
+            templates[i].append(line)
+
+    file.close()
+
+    return templates
+
+
+def convert_template(template):
+    ''' Takes a template and returns a board (represented as a dictionary) '''
+
+    squares = []
     
     y = 1
     for line in template:
@@ -16,45 +51,36 @@ def get_board(filename):
         for tile in line:
             
             filled = 'filled'
-            if tile == 'X':
+            if tile == '#':
                 filled = 'empty'
 
-            if str.lower(tile) == 'k':
-                piece = 'king'
-            elif str.lower(tile) == 'q':
-                piece = 'queen'
-            elif str.lower(tile) == 'r':
-                piece = 'rook'
-            elif str.lower(tile) == 'b':
-                piece = 'bishop'
-            elif str.lower(tile) == 'n':
-                piece = 'knight'
-            elif str.lower(tile) == 'p':
-                piece = 'pawn'
-            else:
-                piece = None
+            piece = pieces.get(str.lower(tile), None)
             
-            color = 'black'
+            color = 'white'
             if str.islower(tile):
-                color = 'white'
+                color = 'black'
 
-            board.append({'x': x, 'y': y, 'filled':filled, 'piece':piece, 'color':color})
+            squares.append({'x': x, 'y': y, 'filled':filled, 'piece':piece, 'color':color})
 
             x = x + 1
 
         y = y + 1
 
-    template.close()
+    return { 'squares': squares, 'width': x - 1, 'height': y - 1 }
 
-    return board
-
-board = get_board('boards.txt')
 
 @app.route('/')
 def play():
+    templates = get_templates('static/boards.txt')
+    board_id = randint(1, len(templates))
+    board_id = 1
+    board = convert_template(templates[board_id])
     return render_template('board.jhtml', board=board)
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
+
+
 

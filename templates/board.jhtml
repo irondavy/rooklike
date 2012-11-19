@@ -3,23 +3,29 @@
 <head>
     <title>Rooklike</title>
     <link href='/static/style.css' rel='stylesheet' type='text/css' />
-    <script src='//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
+    <script src='/static/jquery-1.8.3.min.js'></script>
     <script src='/static/jquery.jrumble.1.3.min.js'></script>
     <script src='/static/rooklike.js'></script>
 </head>
 
 <body>
 
-    <div class="board">
+    <board width='{{ board.width }}' height='{{ board.height }}'>
 
-        {% for square in board %}
-            <div class="tile {{ square.filled }} x{{ square.x }} y{{ square.y}}">
+        {% for square in board.squares %}
+
+            <tile filled='{{ square.filled }}' x='{{ square.x }}' y='{{ square.y }}'>
+
                 {% if square.piece %}
-                    <span class='piece {{ square.color }} {{ square.piece }}'></span>
+
+                    <piece color='{{ square.color }}' type='{{ square.piece }}' class='unlocked' />
+
                 {% endif %}
-            </div>
+
+            </tile>
+
         {% endfor %}
 
-    </div>
+    </board>
 
 </body>
