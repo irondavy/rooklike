@@ -1,6 +1,12 @@
+var DEBUG = false;
+
 $(document).ready(function() {
 
     drawBoard(50);
+
+    if (DEBUG) {
+        $('board').addClass('debug');
+    }
 
     $(document).on('click',
         'piece.unlocked',
@@ -54,7 +60,7 @@ function selectPiece(piece) {
     piece.parent('tile').addClass('selected');
     piece_selected = true;
 
-    checkSquares(piece, true);
+    checkSquares(piece, false);
 
     $('.valid, .valid piece').click(function() {
         if ($(this).is('tile')) {
@@ -86,10 +92,13 @@ function movePiece(piece, tile, callback) {
     console.log(piece.attr('type'));
 
     piece.css('position', 'relative');
+
+    var animation_speed = 500;
+    if (DEBUG) { animation_speed = 1500; } 
     piece.animate({
         'left': '+='+(TILE_SIZE * (new_x - old_x)),
         'top': '+='+(TILE_SIZE * (new_y - old_y))
-    }, 500, function() {
+    }, animation_speed, function() {
         if (tile.children('piece').length) {
             tile.children('piece').remove();
         }
@@ -109,13 +118,7 @@ function movePiece(piece, tile, callback) {
     });
 }
 
-function checkSquares(piece, visible) {
-    if (visible) {
-        $('board').addClass('show_valid');
-    } else {
-        $('board').removeClass('show_valid');
-    }
-
+function checkSquares(piece, is_enemy) {
     var type = piece.attr('type');
     var color = piece.attr('color');
     var x = parseInt(piece.parent().attr('x'));
@@ -123,90 +126,92 @@ function checkSquares(piece, visible) {
     piece = new Piece(type, color, x, y)
 
     if (piece.type == 'queen') {
-        checkDirections(piece, ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']);
+        checkDirections(piece, is_enemy, ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']);
     } else if (piece.type == 'bishop') {
-        checkDirections(piece, ['NE', 'SE', 'SW', 'NW']);
+        checkDirections(piece, is_enemy, ['NE', 'SE', 'SW', 'NW']);
     } else if (piece.type == 'rook') {
-        checkDirections(piece, ['N', 'E', 'S', 'W']);
+        checkDirections(piece, is_enemy, ['N', 'E', 'S', 'W']);
     }
 }
 
-function checkDirections(piece, directions) {
+function checkDirections(piece, is_enemy, directions) {
     for (var i = 0; i < directions.length; i++) {
-        if (directions[i] == 'N')  { checkN(piece) }
-        if (directions[i] == 'NE') { checkNE(piece) }
-        if (directions[i] == 'E')  { checkE(piece) }
-        if (directions[i] == 'SE') { checkSE(piece) }
-        if (directions[i] == 'S')  { checkS(piece) }
-        if (directions[i] == 'SW') { checkSW(piece) }
-        if (directions[i] == 'W')  { checkW(piece) }
-        if (directions[i] == 'NW') { checkNW(piece) }
+        if (directions[i] == 'N')  { checkN(piece, is_enemy) }
+        if (directions[i] == 'NE') { checkNE(piece, is_enemy) }
+        if (directions[i] == 'E')  { checkE(piece, is_enemy) }
+        if (directions[i] == 'SE') { checkSE(piece, is_enemy) }
+        if (directions[i] == 'S')  { checkS(piece, is_enemy) }
+        if (directions[i] == 'SW') { checkSW(piece, is_enemy) }
+        if (directions[i] == 'W')  { checkW(piece, is_enemy) }
+        if (directions[i] == 'NW') { checkNW(piece, is_enemy) }
     }
 }
 
-function checkN(piece) {
+function checkN(piece, is_enemy) {
     for (var x = piece.x, y = piece.y - 1; y > 0; y--) {
-        if (!checkTile(piece, x, y)) { break; }
+        if (!checkTile(piece, is_enemy, x, y)) { break; }
     }
 }
 
-function checkNE(piece) {
+function checkNE(piece, is_enemy) {
     for (var x = piece.x + 1, y = piece.y - 1; x <= BOARD_WIDTH, y > 0; x++, y--) {
-        if (!checkTile(piece, x, y)) { break; }
+        if (!checkTile(piece, is_enemy, x, y)) { break; }
     }
 }
 
-function checkE(piece) {
+function checkE(piece, is_enemy) {
     for (var x = piece.x + 1, y = piece.y; x <= BOARD_WIDTH; x++) {
-        if (!checkTile(piece, x, y)) { break; }
+        if (!checkTile(piece, is_enemy, x, y)) { break; }
     }
 }
 
-function checkSE(piece) {
+function checkSE(piece, is_enemy) {
     for (var x = piece.x + 1, y = piece.y + 1; x <= BOARD_WIDTH, y <= BOARD_HEIGHT; x++, y++) {
-        if (!checkTile(piece, x, y)) { break; }
+        if (!checkTile(piece, is_enemy, x, y)) { break; }
     }
 }
 
-function checkS(piece) {
+function checkS(piece, is_enemy) {
     for (var x = piece.x, y = piece.y + 1; y <= BOARD_HEIGHT; y++) {
-        if (!checkTile(piece, x, y)) { break; }
+        if (!checkTile(piece, is_enemy, x, y)) { break; }
     }
 }
 
-function checkSW(piece) {
+function checkSW(piece, is_enemy) {
     for (var x = piece.x - 1, y = piece.y + 1; x > 0, y <= BOARD_HEIGHT; x--, y++) {
-        if (!checkTile(piece, x, y)) { break; }
+        if (!checkTile(piece, is_enemy, x, y)) { break; }
     }
 }
 
-function checkW(piece) {
+function checkW(piece, is_enemy) {
     for (var x = piece.x - 1, y = piece.y; x > 0; x--) {
-        if (!checkTile(piece, x, y)) { break; }
+        if (!checkTile(piece, is_enemy, x, y)) { break; }
     }
 }
 
-function checkNW(piece) {
+function checkNW(piece, is_enemy) {
     for (var x = piece.x - 1, y = piece.y - 1; x > 0, y > 0; x--, y--) {
-        if (!checkTile(piece, x, y)) { break; }
+        if (!checkTile(piece, is_enemy, x, y)) { break; }
     }
 }
 
-function checkTile(piece, x, y) {
+function checkTile(piece, is_enemy, x, y) {
+    check_class = 'valid';
+    if (is_enemy) { check_class = 'dangerous'; }
     var tile = $('tile[x='+x+'][y='+y+']');
     if (tile.attr('filled') == 'filled') {
         if (tile.children('piece').length) {
             if (tile.children('piece').attr('color') == piece.color) {
                 return false;
             } else {
-                tile.addClass('valid');
+                tile.addClass(check_class);
                 tile.children('piece')
                     .removeClass('unlocked')
                     .addClass('locked');
                 return false;
             }
         }
-        tile.addClass('valid');
+        tile.addClass(check_class);
         return true;
     } else {
         return false;
@@ -235,20 +240,26 @@ function resetRound() {
 
 function playWhite() {
     console.log('turn: white');
+    $('body').removeClass().addClass('turn_white');
 }
 
 function playBlack() {
     console.log('turn: black');
+    $('body').removeClass().addClass('turn_black');
     playNextBlackPiece();
 }
 
 function playNextBlackPiece() {
     var piece = $('piece.unplayed').filter('[color=black]').first();
     if (piece.length) {
-        checkSquares(piece, true);
+        checkSquares(piece, false);
+
+        $('piece').filter('[color=white]').each(function() {
+            checkSquares($(this), true);
+        });
 
         var new_tile = piece.parent();
-        valid_tiles = $('.valid');
+        valid_tiles = $('.valid').not('.dangerous');
         for (var i=0; i < valid_tiles.length; i++) {
             valid_tile = $(valid_tiles[i]);
             if (valid_tile.children('piece').length) {
@@ -260,12 +271,14 @@ function playNextBlackPiece() {
             }
         }
 
-        $('.valid').removeClass('valid');
+        
         piece
             .removeClass('unplayed')
             .addClass('played');
         movePiece(piece, new_tile, function() {
-             playNextBlackPiece();
+            $('.dangerous').removeClass('dangerous');
+            $('.valid').removeClass('valid');
+            playNextBlackPiece();
         });
     } else {
         resetRound();

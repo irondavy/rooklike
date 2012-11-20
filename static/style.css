@@ -1,9 +1,28 @@
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,audio,canvas,details,figcaption,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,summary,time,video{border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;margin:0;padding:0;}body{line-height:1;}article,aside,dialog,figure,footer,header,hgroup,nav,section,blockquote{display:block;}nav ul{list-style:none;}ol{list-style:decimal;}ul{list-style:disc;}ul ul{list-style:circle;}blockquote,q{quotes:none;}blockquote:before,blockquote:after,q:before,q:after{content:none;}ins{text-decoration:underline;}del{text-decoration:line-through;}mark{background:none;}abbr[title],dfn[title]{border-bottom:1px dotted #000;cursor:help;}table{border-collapse:collapse;border-spacing:0;}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0;}input[type=submit],input[type=button],button{margin:0!important;padding:0!important;}input,select,a img{vertical-align:middle;}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,audio,canvas,details,figcaption,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,summary,time,video{border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;margin:0;padding:0;}body{line-height:1;}article,aside,dialog,figure,footer,header,hgroup,nav,section,blockquote{display:block;}nav ul{list-style:none;}ol{list-style:decimal;}ul{list-style:disc;}ul ul{list-style:circle;}blockquote,q{quotes:none;}blockquote:before,blockquote:after,q:before,q:after{content:none;}ins{text-decoration:underline;}del{text-decoration:line-through;}mark{background:none;}abbr[title],dfn[title]{border-bottom:1px dotted #000;cursor:help;}table{border-collapse:collapse;border-spacing:0;}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0;}input,select,a img{vertical-align:middle;}
 
 body {
     background: #333;
-    font-family: 'Helvetica Neue';
+    font-family: Georgia;
 }
+
+a {
+    text-decoration: none;
+    color: #ccc;
+}
+    a:hover {
+        text-decoration: underline;
+    }
+
+#home {
+    display: block;
+    padding: 20px;
+    float: left;
+    color: #666;
+}
+    #home:hover {
+        color: #fff;
+        text-decoration: none;
+    }
 
 board {
     position: absolute;
@@ -11,6 +30,18 @@ board {
     top: 50%;
     left: 50%;
 }
+    board h1 {
+        color: #999;
+        text-align: center;
+        font-family: 'Minion Pro';
+        font-size: 24px;
+        font-weight: normal;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        line-height: 30px;
+        margin-bottom: 20px;
+        margin-top: -50px;
+    }
 
 tile {
     width: 50px;
@@ -31,14 +62,26 @@ tile {
     tile[filled='filled'].selected {
         background: hsl(210, 100%, 75%);
     }
-    .show_valid tile[filled='filled'].valid {
+    .turn_white tile[filled='filled'].valid {
         background: hsl(210, 100%, 95%);
     }
-        .show_valid tile:nth-of-type(2n)[filled='filled'].valid {
+        .turn_white tile:nth-of-type(2n)[filled='filled'].valid {
             background: hsl(210, 90%, 90%);
         }
-        .show_valid tile[filled='filled'].valid:hover {
+        .turn_white tile[filled='filled'].valid:hover {
             background: hsl(80, 70%, 60%);
+        }
+    .turn_black .debug tile[filled='filled'].valid {
+        background: hsl(0, 100%, 95%) !important;
+    }
+        .turn_black .debug tile:nth-of-type(2n)[filled='filled'].valid {
+            background: hsl(0, 90%, 90%) !important;
+        }
+    .debug tile[filled='filled'].dangerous {
+        background: hsl(50, 100%, 95%);
+    }
+        .debug tile:nth-of-type(2n)[filled='filled'].dangerous {
+            background: hsl(50, 90%, 90%);
         }
 
 piece {
@@ -48,6 +91,7 @@ piece {
     text-align: center;
     line-height: 50px;
     font-size: 40px;
+    font-family: 'Helvetica Neue';
 }
     piece[color='white'].locked,
     piece[color='black'].played {
@@ -65,4 +109,147 @@ piece {
     piece[color='black'][type='bishop']:before { content: '\265D'; }
     piece[color='black'][type='knight']:before { content: '\265E'; }
     piece[color='black'][type='pawn']:before   { content: '\265F'; }
+
+#page {
+    width: 700px;
+    margin: 0 auto;
+    padding: 50px 0 150px;
+    color: #fff;
+    font-size: 18px;
+}
+    #page h1 {
+        font-weight: normal;
+        font-size: 24px;
+        margin-bottom: .25em;
+    }
+    #page h2 {
+        font-weight: normal;
+        font-size: 36px;
+        margin-bottom: 1.50em;
+    }
+    #page h2 small {
+        font-size: 24px;
+        color: #aaa;
+    }
+    #page h2 small a {
+        color: #aaa;
+    }
+
+#new {
+    /*text-align: center;*/
+}
+    #new input[name=title],
+    #new textarea[name=template] {
+        background: #333;
+        border: 1px solid #555;
+        display: block;
+        width: 480px;
+        padding: 5px;
+        color: inherit;
+        font: inherit;
+        margin: 0 0 1em;
+        box-sizing: border-box;
+    }
+    #new input[name=title]:focus,
+    #new textarea[name=template]:focus {
+        outline: 0;
+        border-color: #999;
+    }
+    #new input[name=title] {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    #new textarea[name=template] {
+        height: 480px;
+        font-family: Courier;
+    }
+    #new input[type=submit] {
+        background: hsl(0, 0%, 100%);
+        color: #333;
+        display: inline-block;
+        font: inherit;
+        border: 0;
+        padding: 7px;
+        border-radius: 3px;
+        float: right;
+        margin-right: 220px;
+    }
+        #new input[type=submit]:hover {
+            cursor: pointer;
+            background: hsl(0, 0%, 75%);
+        }
+    #new #template {
+        width: 700px;
+    }
+        #new #instructions {
+            color: #aaa;
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: left;
+            width: 200px;
+            float: right;
+        }
+        #new #instructions h3 {
+            margin: 1em 0;
+        }
+        #new #instructions_key {
+            width: 110px;
+            float: left;
+        }
+        #new #instructions table {
+            width: 100%;
+        }
+        #new #instructions td {
+            border-bottom: 1px solid #555;
+            padding: 5px;
+        }
+        #new #instructions tr:first-child td {
+            border-top: 1px solid #555;
+        }
+        #new #instructions td:first-child {
+            width: 1em;
+            font-family: Courier;
+        }
+        #new #instructions_example {
+            width: 70px;
+            float: right;
+        }
+        #new #instructions_example code {
+            font-family: Courier;
+        }
+
+#list {
+    width: 750px;
+    overflow: hidden;
+}
+    #list .board {
+        overflow: hidden;
+        width: 200px;
+        height: 200px;
+        display: block;
+        float: left;
+        margin: 0 50px 50px 0;
+        border: 1px solid #555;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+    #list .board:hover {
+        border-color: #999;
+        text-decoration: none;
+    }
+    #list .board strong {
+        display: block;
+        text-transform: uppercase;
+        font-weight: normal;
+        letter-spacing: 2px;
+        color: #999;
+        margin-bottom: 5px;
+    }
+        #list .board:hover strong {
+            color: #fff;
+        }
+    #list .board span {
+        white-space: pre;
+        font-family: Courier;
+    }
 

@@ -1,20 +1,37 @@
+import sqlite3
+from flask import Flask, request, g, redirect, url_for, render_template
+from contextlib import closing
 import os
-from flask import Flask
-from flask import render_template
 from random import randint
 
 
+DATABASE = 'tmp/rooklike.db'
+DEBUG = True
+SECRET_KEY = 'coprophage'
+USERNAME = 'admin'
+PASSWORD = 'rosetown'
+
+
 app = Flask(__name__)
+app.config.from_object(__name__)
 
 
-pieces = {
-    'k': 'king',
-    'q': 'queen',
-    'r': 'rook',
-    'b': 'bishop',
-    'n': 'knight',
-    'p': 'pawn'
-}
+def connect_db():
+    return sqlite3.connect(app.config['DATABASE'])
+
+def init_db():
+    with closing(connect_db()) as db:
+        with app.open_resource('schema.sql') as f:
+            db.cursor().executescript(f.read())
+        db.commit()
+
+@app.before_request
+def before_request():
+    g.db = connect_db()
+
+@app.teardown_request
+def teardown_request(exception):
+    g.db.close()
 
 
 def get_templates(filename):
@@ -39,8 +56,25 @@ def get_templates(filename):
     return templates
 
 
+def format_template(template):
+    ''' Takes a unicode template from the database and returns a template
+        (represented as a list of strings) for use by convert_template() '''
+
+    template = template.encode('ascii', 'ignore').replace('\r', '').split('\n')
+    return template
+
+
 def convert_template(template):
     ''' Takes a template and returns a board (represented as a dictionary) '''
+
+    pieces = {
+        'k': 'king',
+        'q': 'queen',
+        'r': 'rook',
+        'b': 'bishop',
+        'n': 'knight',
+        'p': 'pawn'
+    }
 
     squares = []
     
@@ -70,12 +104,47 @@ def convert_template(template):
 
 
 @app.route('/')
+def list():
+    cur = g.db.execute('select title, template from boards order by id asc')
+    boards = []
+    i = 0
+    for row in cur.fetchall():
+        boards.append(dict(id=i, title=row[0], template=row[1]))
+        i = i + 1
+    return render_template('list.jhtml', boards=boards)
+
+
+@app.route('/new')
+def new():
+    return render_template('new.jhtml')
+
+
+@app.route('/add', methods=['POST'])
+def add():
+    g.db.execute('insert into boards (title, template) values (?, ?)',
+                 [request.form['title'], request.form['template']])
+    g.db.commit()
+    return redirect(url_for('list'))
+
+
+@app.route('/play')
 def play():
     templates = get_templates('static/boards.txt')
     board_id = randint(1, len(templates))
     board_id = 1
     board = convert_template(templates[board_id])
     return render_template('board.jhtml', board=board)
+
+
+@app.route('/play/<int:id>')
+def play_id(id):
+    cur = g.db.execute('select title, template from boards order by id asc')
+    boards = [dict(title=row[0], template=row[1]) for row in cur.fetchall()]
+    title = boards[id]['title']
+    print title
+    template = boards[id]['template']
+    board = convert_template(format_template(template))
+    return render_template('board.jhtml', title=title, board=board)
 
 
 if __name__ == '__main__':

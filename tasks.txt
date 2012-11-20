@@ -1,0 +1,25 @@
+# Bugs
+
+[ ] Fix invalid movement bug // Can't figure out how to repro
+
+# AI
+
+[ ] Improved AI
+
+# Level Editor
+
+[x] Create/play level views
+[ ] Validate levels
+[ ] Accommodate even numbered dimensions
+[ ] Edit & delete existing levels
+
+# Gameplay
+
+[ ] Random board generation
+[ ] Dungeon exits
+
+# UI
+
+[ ] Mobile input
+[ ] Responsive UI
+[ ] Save play sessions

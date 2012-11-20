@@ -1,0 +1,14 @@
+{% extends 'layout.jhtml' %}
+{% block body %}
+    <div id='list'>
+        <h2>Boards<small> / <a href='{{ url_for('new') }}'>Create Board</a></small></h2>
+        {% for board in boards %}
+            <a href='/play/{{ board.id }}' class='board'>
+                <strong>{{ board.title }}</strong>
+                <span>{{ board.template }}</span>
+            </a>
+            {% else %}
+            <em>No boards</em>
+        {% endfor %}
+    </div>
+{% endblock %}
