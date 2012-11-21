@@ -1,13 +1,23 @@
+from flask import Flask, request, redirect, url_for, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask import Flask, request, g, redirect, url_for, render_template
-from contextlib import closing
+from flask_heroku import Heroku
 import os
 from random import randint
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+heroku = Heroku(app)
 db = SQLAlchemy(app)
+
+
+class Board(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80))
+    template = db.Column(db.String(120))
+
+    def __init__(self, title, template):
+        self.title = title
+        self.template = template
 
 
 def get_templates(filename):
@@ -97,6 +107,9 @@ def new():
 
 @app.route('/add', methods=['POST'])
 def add():
+    board = Board(request.form['title'], request.form['template'])
+    db.session.add(board)
+    db.session.commit()
     # g.db.execute('insert into boards (title, template) values (?, ?)',
     #              [request.form['title'], request.form['template']])
     # g.db.commit()
