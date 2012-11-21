@@ -95,6 +95,7 @@ def convert_template(template):
 def list():
     boards = []
     boards_query = Board.query.all()
+    boards_query.reverse()
     for board in boards_query:
         boards.append(dict(id=board.id, title=board.title, template=board.template))
     return render_template('list.jhtml', boards=boards)
