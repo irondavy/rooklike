@@ -1,5 +1,4 @@
 {% extends 'layout.jhtml' %}
-{% autoescape %}
 {% block body %}
     <div id='list'>
         <h2>Boards<small><a href='{{ url_for('new') }}'>+ Create Board</a></small></h2>
