@@ -1,0 +1,69 @@
+{% extends 'layout.jhtml' %}
+{% block body %}
+    <div id='new'>
+        <form action='{{ url_for('update') }}' method='post'>
+            <h2>Edit Board</h2>
+            <input name='title' placeholder='Title' value='{{ title }}'>
+            <div id='template'>
+                <div id='instructions'>
+                    The template format is a grid of ASCII characters. For now, a grid must be a rectangle with odd-numbered dimensions and every tile defined.
+                    <div>
+                        <div id='instructions_key'>
+                            <h3>Key</h3>
+                            <table>
+                                <tr>
+                                    <td>.</td>
+                                    <td>Empty Tile</td>
+                                </tr>
+                                <tr>
+                                    <td>#</td>
+                                    <td>Wall</td>
+                                </tr>
+                                <tr>
+                                    <td>B</td>
+                                    <td>White Bishop</td>
+                                </tr>
+                                <tr>
+                                    <td>R</td>
+                                    <td>White Rook</td>
+                                </tr>
+                                <tr>
+                                    <td>Q</td>
+                                    <td>White Queen</td>
+                                </tr>
+                                <tr>
+                                    <td>b</td>
+                                    <td>Black Bishop</td>
+                                </tr>
+                                <tr>
+                                    <td>r</td>
+                                    <td>Black Rook</td>
+                                </tr>
+                                <tr>
+                                    <td>q</td>
+                                    <td>Black Queen</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id='instructions_example'>
+                            <h3>Example</h3>
+                            <code>
+                            .......##<br />
+                            .Q......#<br />
+                            ....#....<br />
+                            ...###...<br />
+                            ....#....<br />
+                            #......r.<br />
+                            ##.......
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                <textarea name='template' placeholder='Template'>{{ template }}</textarea>
+                <input name='id' type='hidden' value='{{ id }}' />
+            </div>
+            <input type='submit' value='Save'>
+          </dl>
+        </form>
+    </div>    
+{% endblock %}
