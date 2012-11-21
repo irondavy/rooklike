@@ -8,7 +8,7 @@
                 <span>{{ board.template }}</span>
             </a>
             {% else %}
-            <em>No boards</em>
+            <p>No boards</p>
         {% endfor %}
     </div>
 {% endblock %}
