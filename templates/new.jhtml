@@ -2,7 +2,7 @@
 {% block body %}
     <div id='new'>
         <form action='{{ url_for('add') }}' method='post'>
-            <h2>Create Board<small> / <a href='{{ url_for('list') }}'>Boards</a></small></h2>
+            <h2>Create Board</h2>
             <input name='title' placeholder='Title'>
             <div id='template'>
                 <div id='instructions'>

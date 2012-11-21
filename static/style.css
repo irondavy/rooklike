@@ -10,18 +10,22 @@ a {
     color: #ccc;
 }
     a:hover {
-        text-decoration: underline;
+        color: #fff !important;
     }
 
-#home {
-    display: block;
-    padding: 20px;
-    float: left;
-    color: #666;
+h1 {
+    text-align: center;
+    padding: 10px 0;
+    font-weight: normal;
+    border-bottom: 1px solid #555;
+    position: relative;
 }
-    #home:hover {
-        color: #fff;
-        text-decoration: none;
+    h1 #home {
+        position: absolute;
+        left: 10px;
+    }
+    h1 a {
+        color: #666;
     }
 
 board {
@@ -30,7 +34,7 @@ board {
     top: 50%;
     left: 50%;
 }
-    board h1 {
+    board h2 {
         color: #999;
         text-align: center;
         font-family: 'Minion Pro';
@@ -47,6 +51,7 @@ tile {
     width: 50px;
     height: 50px;
     float: left;
+    position: relative;
     background: hsl(0, 100%, 100%);
 }
     tile:nth-of-type(2n) {
@@ -62,27 +67,33 @@ tile {
     tile[filled='filled'].selected {
         background: hsl(210, 100%, 75%);
     }
-    .turn_white tile[filled='filled'].valid {
+    .turn_white tile[filled='filled'].valid,
+    .turn_black .debug tile[filled='filled'].valid {
         background: hsl(210, 100%, 95%);
     }
-        .turn_white tile:nth-of-type(2n)[filled='filled'].valid {
+        .turn_white tile:nth-of-type(2n)[filled='filled'].valid,
+        .turn_black .debug tile:nth-of-type(2n)[filled='filled'].valid {
             background: hsl(210, 90%, 90%);
         }
         .turn_white tile[filled='filled'].valid:hover {
             background: hsl(80, 70%, 60%);
         }
-    .turn_black .debug tile[filled='filled'].valid {
-        background: hsl(0, 100%, 95%) !important;
-    }
-        .turn_black .debug tile:nth-of-type(2n)[filled='filled'].valid {
-            background: hsl(0, 90%, 90%) !important;
-        }
     .debug tile[filled='filled'].dangerous {
-        background: hsl(50, 100%, 95%);
+        box-shadow: inset 0 0 0 5px hsl(0, 100%, 95%);
     }
         .debug tile:nth-of-type(2n)[filled='filled'].dangerous {
-            background: hsl(50, 90%, 90%);
+            box-shadow: inset 0 0 0 5px hsl(0, 90%, 90%);
         }
+    tile .tile_xy {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 0;
+        font-family: Helvetica Neue, Arial;
+        font-size: 10px;
+        /*background: #ccc;*/
+        padding: 2px 3px 3px;
+    }
 
 piece {
     width: 50px;
@@ -92,6 +103,8 @@ piece {
     line-height: 50px;
     font-size: 40px;
     font-family: 'Helvetica Neue';
+    position: relative;
+    z-index: 10;
 }
     piece[color='white'].locked,
     piece[color='black'].played {
@@ -113,31 +126,28 @@ piece {
 #page {
     width: 700px;
     margin: 0 auto;
-    padding: 50px 0 150px;
+    padding: 75px 0 150px;
     color: #fff;
     font-size: 18px;
 }
-    #page h1 {
-        font-weight: normal;
-        font-size: 24px;
-        margin-bottom: .25em;
-    }
     #page h2 {
         font-weight: normal;
         font-size: 36px;
-        margin-bottom: 1.50em;
+        margin-bottom: 50px;
     }
     #page h2 small {
+        margin-top: 12px;
         font-size: 24px;
-        color: #aaa;
+        float: right;
     }
     #page h2 small a {
         color: #aaa;
     }
+    #page .back {
+        margin-bottom: .5em;
+    }
 
-#new {
-    /*text-align: center;*/
-}
+#new {}
     #new input[name=title],
     #new textarea[name=template] {
         background: #333;
@@ -169,7 +179,7 @@ piece {
         display: inline-block;
         font: inherit;
         border: 0;
-        padding: 7px;
+        padding: 7px 10px;
         border-radius: 3px;
         float: right;
         margin-right: 220px;
@@ -222,6 +232,9 @@ piece {
     width: 750px;
     overflow: hidden;
 }
+    #list h2 {
+        padding-right: 50px;
+    }
     #list .board {
         overflow: hidden;
         width: 200px;
@@ -232,10 +245,10 @@ piece {
         border: 1px solid #555;
         box-sizing: border-box;
         padding: 10px;
+        text-align: center;
     }
     #list .board:hover {
         border-color: #999;
-        text-decoration: none;
     }
     #list .board strong {
         display: block;
@@ -243,13 +256,18 @@ piece {
         font-weight: normal;
         letter-spacing: 2px;
         color: #999;
-        margin-bottom: 5px;
+        border-bottom: 1px solid #555;
+        margin: 0 -10px 10px;
+        padding-bottom: 10px;
     }
         #list .board:hover strong {
             color: #fff;
+            border-bottom-color: #999;
         }
     #list .board span {
         white-space: pre;
         font-family: Courier;
+        font-size: 14px;
+        position: relative;
     }
 

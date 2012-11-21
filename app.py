@@ -111,6 +111,7 @@ def list():
     for row in cur.fetchall():
         boards.append(dict(id=i, title=row[0], template=row[1]))
         i = i + 1
+    boards.reverse()
     return render_template('list.jhtml', boards=boards)
 
 
@@ -140,8 +141,7 @@ def play():
 def play_id(id):
     cur = g.db.execute('select title, template from boards order by id asc')
     boards = [dict(title=row[0], template=row[1]) for row in cur.fetchall()]
-    title = boards[id]['title']
-    print title
+    title = boards[id]['title'].upper()
     template = boards[id]['template']
     board = convert_template(format_template(template))
     return render_template('board.jhtml', title=title, board=board)
