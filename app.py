@@ -12,8 +12,8 @@ db = SQLAlchemy(app)
 
 class Board(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80))
-    template = db.Column(db.String(120))
+    title = db.Column(db.String(30))
+    template = db.Column(db.String(1000))
 
     def __init__(self, title, template):
         self.title = title
