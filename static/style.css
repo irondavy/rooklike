@@ -20,9 +20,13 @@ h1 {
     border-bottom: 1px solid #555;
     position: relative;
 }
-    h1 #home {
+    h1 .back {
         position: absolute;
         left: 10px;
+    }
+    h1 .forwards {
+        position: absolute;
+        right: 10px;
     }
     h1 a {
         color: #666;
@@ -126,7 +130,7 @@ piece {
 #page {
     width: 700px;
     margin: 0 auto;
-    padding: 75px 0 150px;
+    padding: 50px 0 150px;
     color: #fff;
     font-size: 18px;
 }

@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+    // if ($('#list').length) {
+    //     $('h1 .back').hide();
+    // }
+
     $('.board').each(function() {
         title_height = $(this).children('strong').height();
         map_height = $(this).children('span').height();

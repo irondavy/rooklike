@@ -113,6 +113,23 @@ def add():
     return redirect(url_for('list'))
 
 
+@app.route('/edit/<int:id>')
+def edit(id):
+    board_query = Board.query.get(id)
+    title = board_query.title.upper()
+    template = board_query.template
+    return render_template('edit.jhtml', id=id, title=title, template=template)
+
+@app.route('/update', methods=['POST'])
+def update():
+    id = request.form['id']
+    board = Board.query.get(id)
+    board.title = request.form['title']
+    board.template = request.form['template']
+    db.session.commit()
+    return redirect(url_for('play_id', id=id))
+
+
 @app.route('/play')
 def play():
     templates = get_templates('static/boards.txt')
@@ -127,7 +144,7 @@ def play_id(id):
     board_query = Board.query.get(id)
     title = board_query.title.upper()
     board = convert_template(format_template(board_query.template))
-    return render_template('board.jhtml', title=title, board=board)
+    return render_template('board.jhtml', id=id, title=title, board=board)
 
 
 if __name__ == '__main__':

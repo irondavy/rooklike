@@ -10,7 +10,11 @@
 
 <body>
 
-    <h1><a href="/">Rooklike</a></h1>
+    <h1>
+        <a href="/" class="back">&lArr; Boards</a>
+        <a href="/">Rooklike</a>
+        <a href="/edit/{{ id }}" class="forwards">&#63490; Edit</a>
+    </h1>
 
     <board width='{{ board.width }}' height='{{ board.height }}' class='show_valid'>
 
