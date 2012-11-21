@@ -81,13 +81,12 @@ def convert_template(template):
 
 @app.route('/')
 def list():
-    cur = g.db.execute('select title, template from boards order by id asc')
     boards = []
-    i = 0
-    for row in cur.fetchall():
-        boards.append(dict(id=i, title=row[0], template=row[1]))
-        i = i + 1
-    boards.reverse()
+    # i = 0
+    # for row in cur.fetchall():
+    #     boards.append(dict(id=i, title=row[0], template=row[1]))
+    #     i = i + 1
+    # boards.reverse()
     return render_template('list.jhtml', boards=boards)
 
 
@@ -98,9 +97,9 @@ def new():
 
 @app.route('/add', methods=['POST'])
 def add():
-    g.db.execute('insert into boards (title, template) values (?, ?)',
-                 [request.form['title'], request.form['template']])
-    g.db.commit()
+    # g.db.execute('insert into boards (title, template) values (?, ?)',
+    #              [request.form['title'], request.form['template']])
+    # g.db.commit()
     return redirect(url_for('list'))
 
 
@@ -115,11 +114,15 @@ def play():
 
 @app.route('/play/<int:id>')
 def play_id(id):
-    cur = g.db.execute('select title, template from boards order by id asc')
-    boards = [dict(title=row[0], template=row[1]) for row in cur.fetchall()]
-    title = boards[id]['title'].upper()
-    template = boards[id]['template']
-    board = convert_template(format_template(template))
+    # cur = g.db.execute('select title, template from boards order by id asc')
+    # boards = [dict(title=row[0], template=row[1]) for row in cur.fetchall()]
+    # title = boards[id]['title'].upper()
+    # template = boards[id]['template']
+    # board = convert_template(format_template(template))
+    templates = get_templates('static/boards.txt')
+    board_id = randint(1, len(templates))
+    board_id = 1
+    board = convert_template(templates[board_id])
     return render_template('board.jhtml', title=title, board=board)
 
 
