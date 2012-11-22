@@ -323,6 +323,7 @@ piece {
     height: 100%;
     display: none;
     color: #fff;
+    z-index: 100;
 }
     .dialog_inner {
         position: absolute;
