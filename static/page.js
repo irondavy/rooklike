@@ -1,17 +1,23 @@
 $(document).ready(function() {
 
     $('.board').each(function() {
-        title_height = $(this).children('.title').height();
-        map_height = $(this).children('.template').height();
+        title_height = $(this).find('.title').height();
+        map_height = $(this).find('.template').height();
         extra_space = (170 - title_height - map_height) / 2;
         if (extra_space > 0) {
-            $(this).children('.title').css('margin-bottom', extra_space);
+            $(this).find('.title').css('margin-bottom', extra_space);
+        } else {
+            console.log(map_height, title_height);
+            extra_height = (map_height - (150 - title_height)) / 2;
+            if (extra_height > 0) {
+                $(this).find('.template').css('top', -extra_height);
+            }
         }
 
-        map_width = $(this).children('.template').width();
-        extra_width = (map_width - 180) / 2;
+        map_width = $(this).find('.template').width();
+        extra_width = (map_width - 204) / 2;
         if (extra_width > 0) {
-            $(this).children('.template').css('left', -extra_width);
+            $(this).find('.template').css('left', -extra_width);
         }
     });
 

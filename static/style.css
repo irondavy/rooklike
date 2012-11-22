@@ -288,7 +288,6 @@ piece {
         margin: 0 50px 50px 0;
         border: 1px solid #555;
         box-sizing: border-box;
-        padding: 10px;
         text-align: center;
     }
     #list .board:hover {
@@ -302,7 +301,10 @@ piece {
         color: #999;
         border-bottom: 1px solid #555;
         margin: 0 -10px 10px;
-        padding-bottom: 10px;
+        padding: 10px;
+        background: #333;
+        position: relative;
+        z-index: 1;
     }
         #list .board:hover .title {
             color: #fff;
@@ -312,11 +314,12 @@ piece {
         letter-spacing: .5em;
         display: block;
     }
-    #list .board .template_wrapper {
+    #list .board .template {
         white-space: pre;
         font-family: Courier;
         font-size: 14px;
         position: relative;
+        left: 4px;
     }
 
 .dialog {
