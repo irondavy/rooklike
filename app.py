@@ -7,8 +7,7 @@ from random import randint
 
 app = Flask(__name__)
 heroku = Heroku(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/rooklike'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://localhost/rooklike')
 db = SQLAlchemy(app)
 
 
