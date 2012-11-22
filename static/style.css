@@ -188,6 +188,7 @@ piece {
     #edit textarea[name=template] {
         height: 480px;
         font-family: Courier;
+        letter-spacing: .5em;
     }
     #edit #buttons {
         padding-right: 220px;
@@ -293,7 +294,7 @@ piece {
     #list .board:hover {
         border-color: #999;
     }
-    #list .board strong {
+    #list .board .title {
         display: block;
         text-transform: uppercase;
         font-weight: normal;
@@ -303,11 +304,15 @@ piece {
         margin: 0 -10px 10px;
         padding-bottom: 10px;
     }
-        #list .board:hover strong {
+        #list .board:hover .title {
             color: #fff;
             border-bottom-color: #999;
         }
-    #list .board span {
+    #list .board .template_wrapper {
+        letter-spacing: .5em;
+        display: block;
+    }
+    #list .board .template_wrapper {
         white-space: pre;
         font-family: Courier;
         font-size: 14px;
