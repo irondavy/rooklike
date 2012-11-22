@@ -20,16 +20,22 @@ h1 {
     border-bottom: 1px solid #555;
     position: relative;
 }
-    h1 .back {
-        position: absolute;
-        left: 10px;
-    }
-    h1 .forwards {
-        position: absolute;
-        right: 10px;
-    }
     h1 a {
         color: #666;
+    }
+
+.back,
+.forwards {
+    position: absolute;
+    top: 10px;
+    font-size: 16px;
+    color: #666;
+}
+    .back {
+        left: 10px;
+    }
+    .forwards {
+        right: 10px;
     }
 
 board {
@@ -126,6 +132,13 @@ piece {
     piece[color='black'][type='knight']:before { content: '\265E'; }
     piece[color='black'][type='pawn']:before   { content: '\265F'; }
 
+#game_over_win,
+#game_over_lose {
+    display: none;
+}
+
+/* Management UI */
+
 #page {
     width: 700px;
     margin: 0 auto;
@@ -150,9 +163,9 @@ piece {
         margin-bottom: .5em;
     }
 
-#new {}
-    #new input[name=title],
-    #new textarea[name=template] {
+#edit {}
+    #edit input[name=title],
+    #edit textarea[name=template] {
         background: #333;
         border: 1px solid #555;
         display: block;
@@ -163,38 +176,50 @@ piece {
         margin: 0 0 1em;
         box-sizing: border-box;
     }
-    #new input[name=title]:focus,
-    #new textarea[name=template]:focus {
+    #edit input[name=title]:focus,
+    #edit textarea[name=template]:focus {
         outline: 0;
         border-color: #999;
     }
-    #new input[name=title] {
+    #edit input[name=title] {
         text-transform: uppercase;
         letter-spacing: 2px;
     }
-    #new textarea[name=template] {
+    #edit textarea[name=template] {
         height: 480px;
         font-family: Courier;
     }
-    #new input[type=submit] {
+    #edit #buttons {
+        padding-right: 220px;
+        text-align: right;
+    }
+    #edit a.submit,
+    #edit input[type=submit] {
         background: hsl(0, 0%, 100%);
         color: #333;
         display: inline-block;
         font: inherit;
         border: 0;
         padding: 7px 10px;
+        margin: 0;
         border-radius: 3px;
-        float: right;
-        margin-right: 220px;
+        vertical-align: baseline;
+        margin-left: 20px;
     }
-        #new input[type=submit]:hover {
+        #edit a.submit:hover,
+        #edit input[type=submit]:hover {
+            color: #333 !important;
             cursor: pointer;
             background: hsl(0, 0%, 75%);
         }
-    #new #template {
+        #edit input.delete[type=submit]:hover {
+            background: hsl(0, 100%, 50%);
+            color: hsl(0, 0%, 100%) !important;
+        }
+    #edit #template {
         width: 700px;
     }
-        #new #instructions {
+        #edit #instructions {
             color: #aaa;
             font-size: 12px;
             line-height: 1.5;
@@ -202,33 +227,48 @@ piece {
             width: 200px;
             float: right;
         }
-        #new #instructions h3 {
+        #edit #instructions h3 {
             margin: 1em 0;
         }
-        #new #instructions_key {
+        #edit #instructions_key {
             width: 110px;
             float: left;
         }
-        #new #instructions table {
+        #edit #instructions table {
             width: 100%;
         }
-        #new #instructions td {
+        #edit #instructions td {
             border-bottom: 1px solid #555;
             padding: 5px;
         }
-        #new #instructions tr:first-child td {
+        #edit #instructions tr:first-child td {
             border-top: 1px solid #555;
         }
-        #new #instructions td:first-child {
+        #edit #instructions td:first-child {
             width: 1em;
             font-family: Courier;
         }
-        #new #instructions_example {
+        #edit #instructions_example {
             width: 70px;
             float: right;
         }
-        #new #instructions_example code {
+        #edit #instructions_example code {
             font-family: Courier;
+        }
+    #edit #delete_dialog {}
+        #edit #delete_dialog strong {
+            font-weight: normal;
+            display: block;
+            margin-bottom: 40px;
+        }
+            #edit #delete_dialog strong #delete_dialog_title {
+                display: block;
+                letter-spacing: 4px;
+                margin-top: 10px;
+                text-transform: uppercase;
+            }
+        #edit #delete_dialog a.submit {
+            margin-left: 0;
         }
 
 #list {
@@ -272,5 +312,26 @@ piece {
         font-family: Courier;
         font-size: 14px;
         position: relative;
+    }
+
+.dialog {
+    background: hsla(0, 0%, 10%, .95);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    color: #fff;
+}
+    .dialog_inner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 500px;
+        text-align: center;
+        margin-left: -250px;
+        margin-top: -100px;
+        font-size: 18px;
     }
 

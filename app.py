@@ -108,7 +108,10 @@ def new():
 
 @app.route('/add', methods=['POST'])
 def add():
-    board = Board(request.form['title'], request.form['template'])
+    title = 'Untitled'
+    if request.form['title']:
+        title = request.form['title']
+    board = Board(title, request.form['template'])
     db.session.add(board)
     db.session.commit()
     return redirect(url_for('list'))
@@ -121,6 +124,16 @@ def edit(id):
     template = board_query.template
     return render_template('edit.jhtml', id=id, title=title, template=template)
 
+
+@app.route('/delete', methods=['POST'])
+def delete():
+    id = request.form['id']
+    board = Board.query.get(id)
+    db.session.delete(board)
+    db.session.commit()
+    return redirect(url_for('list'))
+
+
 @app.route('/update', methods=['POST'])
 def update():
     id = request.form['id']
@@ -129,15 +142,6 @@ def update():
     board.template = request.form['template']
     db.session.commit()
     return redirect(url_for('play_id', id=id))
-
-
-@app.route('/play')
-def play():
-    templates = get_templates('static/boards.txt')
-    board_id = randint(1, len(templates))
-    board_id = 1
-    board = convert_template(templates[board_id])
-    return render_template('board.jhtml', board=board)
 
 
 @app.route('/play/<int:id>')

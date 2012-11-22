@@ -11,10 +11,11 @@
 <body>
 
     <h1>
-        <a href="/" class="back">&lArr; Boards</a>
         <a href="/">Rooklike</a>
-        <a href="/edit/{{ id }}" class="forwards">&#63490; Edit</a>
     </h1>
+
+    <a href='{{ url_for('list') }}' class='back'>&larr; Boards</a>
+    <a href='{{ url_for('edit', id=id) }}' class='forwards'>&#63490; Edit</a>
 
     <board width='{{ board.width }}' height='{{ board.height }}' class='show_valid'>
 
@@ -31,5 +32,14 @@
         {% endfor %}
 
     </board>
+
+    <div id='game_over_dialog' class='dialog'>
+        <div id='game_over_win' class='dialog_inner'>
+            White has captured all remaining black tiles!
+        </div>
+        <div id='game_over_lose' class='dialog_inner'>
+            White has captured all remaining black tiles!
+        </div>
+    </div>
 
 </body>

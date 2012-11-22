@@ -1,7 +1,10 @@
 {% extends 'layout.jhtml' %}
 {% block body %}
-    <div id='new'>
-        <form action='{{ url_for('update') }}' method='post'>
+
+    <a href='{{ url_for('play_id', id=id) }}' class='back'>&larr; Play</a>
+
+    <div id='edit'>
+        <form action='{{ url_for('update') }}' method='post' autocomplete='off'>
             <h2>Edit Board</h2>
             <input name='title' placeholder='Title' value='{{ title }}'>
             <div id='template'>
@@ -62,8 +65,18 @@
                 <textarea name='template' placeholder='Template'>{{ template }}</textarea>
                 <input name='id' type='hidden' value='{{ id }}' />
             </div>
-            <input type='submit' value='Save'>
-          </dl>
+            <div id='buttons'>
+                <a id='delete' href="#">Delete</a>
+                <input type='submit' value='Save'>
+            </div>
         </form>
+        <div id='delete_dialog' class='dialog'>
+            <form action='{{ url_for('delete') }}' method='post' class='dialog_inner'>
+                <strong>Are you sure you want to delete <span id='delete_dialog_title'><span id='delete_dialog_token'>{{ title }}</span>?</span></strong>
+                <a id='delete_dialog_cancel' href='#' class='submit'>Cancel</a>
+                <input type='submit' class='delete' value='Delete' />
+                <input name='id' type='hidden' value='{{ id }}' />
+            </form>
+        </div>
     </div>    
 {% endblock %}

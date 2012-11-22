@@ -222,7 +222,9 @@ function checkTile(piece_class, is_enemy, x, y) {
 
 function checkTurn() {
     if ($('piece').filter('[color=white]').length == 0) { // There are no uncaptured white tiles
-        console.log('All white tiles have been captured');
+        declareWinner('black');
+    } else if ($('piece').filter('[color=black]').length == 0) { // There are no uncapture black tiles
+        declareWinner('white');
     } else if ($('piece.unlocked').filter('[color=white]').length == 0 && // There are no unlocked white tiles
                $('piece.played').filter('[color=black]').length == 0) { // There are unplayed black tiles
         playBlack();
@@ -318,6 +320,27 @@ function getValue(piece) {
     } else if (type == 'queen') {
         return 9;
     }
+}
+
+function declareWinner(color) {
+    if (color == 'white') {
+        console.log('White wins: all black tiles have been captured');
+        $('#game_over_win').show();
+    } else {
+        console.log('Black wins: all white tiles have been captured');
+        $('#game_over_lose').show();
+    }
+    $('#game_over_dialog')
+        .fadeIn('fast')
+        .click(function() {
+            $(this).fadeOut('fast');
+        });
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) {
+            $('.dialog').fadeOut('fast');
+        }
+    });
+    $('piece').addClass('locked');
 }
 
 function debug(bool) {
