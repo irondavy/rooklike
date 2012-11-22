@@ -2,7 +2,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 body {
     background: #333;
-    font-family: Georgia;
+    font-family: Palatino, Georgia;
 }
 
 a {
@@ -19,6 +19,8 @@ h1 {
     font-weight: normal;
     border-bottom: 1px solid #555;
     position: relative;
+    z-index: 50;
+    background: #333;
 }
     h1 a {
         color: #666;
@@ -27,6 +29,7 @@ h1 {
 .back,
 .forwards {
     position: absolute;
+    z-index: 51;
     top: 10px;
     font-size: 16px;
     color: #666;
@@ -40,11 +43,11 @@ h1 {
 
 board {
     position: absolute;
-    display: block;
+    display: none;
     top: 50%;
     left: 50%;
 }
-    board h2 {
+    #board_title {
         color: #999;
         text-align: center;
         font-size: 24px;
@@ -52,13 +55,11 @@ board {
         text-transform: uppercase;
         letter-spacing: 4px;
         line-height: 30px;
-        margin-bottom: 20px;
-        margin-top: -50px;
+        width: 100%;
+        display: none;
     }
 
 tile {
-    width: 50px;
-    height: 50px;
     float: left;
     position: relative;
     background: hsl(0, 100%, 100%);
@@ -100,7 +101,6 @@ tile {
         z-index: 0;
         font-family: Helvetica Neue, Arial;
         font-size: 10px;
-        /*background: #ccc;*/
         padding: 2px 3px 3px;
     }
 
@@ -132,10 +132,14 @@ piece {
     piece[color='black'][type='knight']:before { content: '\265E'; }
     piece[color='black'][type='pawn']:before   { content: '\265F'; }
 
-#game_over_win,
-#game_over_lose {
-    display: none;
+#game_over_dialog .dialog_inner {
+    font-size: 24px;
+    margin-top: -60px;
 }
+    #game_over_win,
+    #game_over_lose {
+        display: none;
+    }
 
 /* Management UI */
 
@@ -337,9 +341,9 @@ piece {
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 500px;
+        width: 600px;
         text-align: center;
-        margin-left: -250px;
+        margin-left: -300px;
         margin-top: -100px;
         font-size: 18px;
     }

@@ -2,7 +2,7 @@ var DEBUG = false;
 
 $(document).ready(function() {
 
-    drawBoard(50);
+    drawBoard();
 
     if (DEBUG) {
         debug(true);
@@ -24,18 +24,47 @@ $(document).ready(function() {
 
 });
 
-function drawBoard(size) {
-    TILE_SIZE = size;
+function drawBoard() {
+    TILE_SIZE = 50;
     BOARD_WIDTH = $('board').attr('width');
     BOARD_HEIGHT = $('board').attr('height');
+    if (BOARD_WIDTH * TILE_SIZE > $(window).width() || BOARD_HEIGHT * TILE_SIZE > $(window).height()) {
+        var extra_width = BOARD_WIDTH * TILE_SIZE - $(window).width();
+        var extra_height = BOARD_HEIGHT * TILE_SIZE - $(window).height();
+        if (extra_width > extra_height) {
+            TILE_SIZE = Math.round(($(window).width() - 200) / BOARD_WIDTH);
+        } else {
+            TILE_SIZE = Math.round(($(window).height() - 200) / BOARD_HEIGHT);
+        }
+    }
+
+    $('tile')
+        .width(TILE_SIZE)
+        .height(TILE_SIZE);
+
+    $('piece')
+        .width(TILE_SIZE)
+        .height(TILE_SIZE)
+        .css({
+            'font-size': Math.round(TILE_SIZE * .8),
+            'line-height': TILE_SIZE + 'px'
+        });
 
     $('board')
         .width(BOARD_WIDTH * TILE_SIZE)
         .height(BOARD_HEIGHT * TILE_SIZE)
         .css({
             'margin-left': -(BOARD_WIDTH * TILE_SIZE / 2),
-            'margin-top': -((BOARD_HEIGHT * TILE_SIZE / 2) + 50),
+            'margin-top': -(BOARD_HEIGHT * TILE_SIZE / 2) + 40,
+            'display': 'block'
         });
+
+    $('#board_title')
+        .css({
+            'position': 'absolute',
+            'top': $('board').offset().top - $('#board_title').height() - 20
+        })
+        .show();
 
     $('piece').each(function() {
         var self = $(this);

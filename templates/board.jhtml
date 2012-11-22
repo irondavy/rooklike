@@ -17,9 +17,9 @@
     <a href='{{ url_for('list') }}' class='back'>&larr; Boards</a>
     <a href='{{ url_for('edit', id=id) }}' class='forwards'>&#63490; Edit</a>
 
-    <board width='{{ board.width }}' height='{{ board.height }}' class='show_valid'>
+    <h2 id='board_title'>{{ title }}</h2>
 
-        <h2>{{ title }}</h2>
+    <board width='{{ board.width }}' height='{{ board.height }}' class='show_valid'>
 
         {% for square in board.squares %}
             <tile filled='{{ square.filled }}' x='{{ square.x }}' y='{{ square.y }}'>
@@ -35,10 +35,10 @@
 
     <div id='game_over_dialog' class='dialog'>
         <div id='game_over_win' class='dialog_inner'>
-            White has captured all remaining black tiles!
+            Victory! White has captured all remaining black tiles.
         </div>
         <div id='game_over_lose' class='dialog_inner'>
-            Black has captured all remaining white tiles!
+            Game Over. Black has captured all remaining white tiles.
         </div>
     </div>
 
