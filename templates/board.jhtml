@@ -38,7 +38,7 @@
             White has captured all remaining black tiles!
         </div>
         <div id='game_over_lose' class='dialog_inner'>
-            White has captured all remaining black tiles!
+            Black has captured all remaining white tiles!
         </div>
     </div>
 
