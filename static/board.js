@@ -363,13 +363,30 @@ function declareWinner(color) {
         .fadeIn('fast')
         .click(function() {
             $(this).fadeOut('fast');
+            showReplay();
         });
-    $(document).keyup(function(e) {
-        if (e.keyCode == 27) {
-            $('.dialog').fadeOut('fast');
-        }
-    });
+    $(document).keyup(escCloseWinnerDialog);
     $('piece').addClass('locked');
+}
+
+function escCloseWinnerDialog(e) {
+    if (e.keyCode == 27) {
+        $('.dialog').fadeOut('fast');
+        showReplay();
+    }
+    $(document).unbind('keyup', escCloseWinnerDialog);
+}
+
+function showReplay() {
+    $('#replay a')
+        .click(function() {
+            location.reload();
+        })
+        .show()
+        .animate({
+            top: '+=37'
+        });
+    $(document).unbind('keyup', escCloseWinnerDialog);
 }
 
 function debug(bool) {

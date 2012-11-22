@@ -1,5 +1,7 @@
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,audio,canvas,details,figcaption,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,summary,time,video{border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;margin:0;padding:0;}body{line-height:1;}article,aside,dialog,figure,footer,header,hgroup,nav,section,blockquote{display:block;}nav ul{list-style:none;}ol{list-style:decimal;}ul{list-style:disc;}ul ul{list-style:circle;}blockquote,q{quotes:none;}blockquote:before,blockquote:after,q:before,q:after{content:none;}ins{text-decoration:underline;}del{text-decoration:line-through;}mark{background:none;}abbr[title],dfn[title]{border-bottom:1px dotted #000;cursor:help;}table{border-collapse:collapse;border-spacing:0;}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0;}input,select,a img{vertical-align:middle;}
 
+/* Global */
+
 body {
     background: #333;
     font-family: Palatino, Georgia;
@@ -40,6 +42,8 @@ h1 {
     .forwards {
         right: 10px;
     }
+
+/* Board UI */
 
 board {
     position: absolute;
@@ -139,6 +143,27 @@ piece {
     #game_over_win,
     #game_over_lose {
         display: none;
+    }
+
+#replay a {
+    position: fixed;
+    top: 0;
+    /*top: 37px;*/
+    left: 50%;
+    display: none;
+    background: hsl(0, 0%, 100%);
+    color: #333;
+    padding: 10px 0;
+    width: 100px;
+    margin-left: -50px;
+    text-align: center;
+    font-size: 18px;
+    /*border-radius: 3px 3px 0 0;*/
+    border-radius: 0 0 3px 3px;
+}
+    #replay a:hover {
+        color: #333 !important;
+        background: hsl(0, 0%, 75%);
     }
 
 /* Management UI */

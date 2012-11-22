@@ -26,9 +26,7 @@
 
 # UI
 
-[ ] Restart after finish
 [ ] Mobile input
-[ ] Responsive UI
 [ ] Save play sessions
 
 === Done
@@ -48,3 +46,5 @@
 # UI
 
 [x] Add back buttons
+[x] Responsive UI
+[x] Restart after finish

@@ -42,4 +42,8 @@
         </div>
     </div>
 
+    <div id='replay'>
+        <a href='#'>&#10226; Replay</a>
+    </div>
+
 </body>
