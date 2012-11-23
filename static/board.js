@@ -31,7 +31,7 @@ function drawBoard() {
     if (BOARD_WIDTH * TILE_SIZE > $(window).width()) {
         var too_wide = true;
     }
-    if (BOARD_HEIGHT * TILE_SIZE > $(window).height()) {
+    if (BOARD_HEIGHT * TILE_SIZE + 100 > $(window).height()) {
         var too_tall = true;
     }
     if (BOARD_WIDTH % 2 == 0) {
