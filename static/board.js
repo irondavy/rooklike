@@ -28,14 +28,11 @@ function drawBoard() {
     TILE_SIZE = 50;
     BOARD_WIDTH = $('board').attr('width');
     BOARD_HEIGHT = $('board').attr('height');
-    if (BOARD_WIDTH * TILE_SIZE > $(window).width() || BOARD_HEIGHT * TILE_SIZE > $(window).height()) {
-        var extra_width = BOARD_WIDTH * TILE_SIZE - $(window).width();
-        var extra_height = BOARD_HEIGHT * TILE_SIZE - $(window).height();
-        if (extra_width > extra_height) {
-            TILE_SIZE = Math.round(($(window).width() - 200) / BOARD_WIDTH);
-        } else {
-            TILE_SIZE = Math.round(($(window).height() - 200) / BOARD_HEIGHT);
-        }
+    if (BOARD_WIDTH * TILE_SIZE > $(window).width()) {
+        var too_wide = true;
+    }
+    if (BOARD_HEIGHT * TILE_SIZE > $(window).height()) {
+        var too_tall = true;
     }
 
     $('tile')
@@ -52,16 +49,56 @@ function drawBoard() {
 
     $('board')
         .width(BOARD_WIDTH * TILE_SIZE)
-        .height(BOARD_HEIGHT * TILE_SIZE)
-        .css({
-            'margin-left': -(BOARD_WIDTH * TILE_SIZE / 2),
-            'margin-top': -(BOARD_HEIGHT * TILE_SIZE / 2) + 40,
-            'display': 'block'
-        });
+        .height(BOARD_HEIGHT * TILE_SIZE);
+
+    if (too_tall && !too_wide) {
+        // console.log('too tall but not too wide');
+        $('board')
+            .css({
+                'position': 'static',
+                'margin': '100px auto',
+                'display': 'block'
+            });
+    } else if (too_wide && !too_tall) {
+        // console.log('too wide but not too tall');
+        $('board')
+            .css({
+                'position': 'relative',
+                'top': $(window).height() / 2 - (BOARD_HEIGHT * TILE_SIZE / 2) - 20,
+                'padding': '0 100px',
+                'display': 'block'
+            });
+        $('#board_title')
+            .css({
+                'position': 'fixed'
+            });
+    } else if (too_tall && too_wide) {
+        // console.log('too tall and too wide');
+        $('board')
+            .css({
+                'display': 'block',
+                'padding': '100px'
+            });
+        $('#board_title')
+            .css({
+                'position': 'fixed',
+                'margin': '100px 0 -50px'
+            });
+    } else {
+        // console.log('not too tall and not too wide');
+        $('board')
+            .css({
+                'position': 'absolute',
+                'top': '50%',
+                'left': '50%',
+                'margin-left': -(BOARD_WIDTH * TILE_SIZE / 2),
+                'margin-top': -(BOARD_HEIGHT * TILE_SIZE / 2) + 20,
+                'display': 'block'
+            });
+    }
 
     $('#board_title')
         .css({
-            'position': 'absolute',
             'top': $('board').offset().top - $('#board_title').height() - 20
         })
         .show();
