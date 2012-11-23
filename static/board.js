@@ -8,7 +8,7 @@ $(document).ready(function() {
         debug(true);
     }
 
-    $(document).on('click',
+    $('tile').on('click',
         'piece.unlocked',
         function() {
             var self = $(this);
