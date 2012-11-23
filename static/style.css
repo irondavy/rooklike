@@ -69,7 +69,7 @@ tile {
     position: relative;
     background: hsl(0, 100%, 100%);
 }
-    tile:nth-of-type(2n) {
+    tile.dark {
         background: hsl(0, 0%, 90%);
     }
     tile[filled='empty'] {
@@ -86,8 +86,8 @@ tile {
     .turn_black .debug tile[filled='filled'].valid {
         background: hsl(210, 100%, 95%);
     }
-        .turn_white tile:nth-of-type(2n)[filled='filled'].valid,
-        .turn_black .debug tile:nth-of-type(2n)[filled='filled'].valid {
+        .turn_white tile.dark[filled='filled'].valid,
+        .turn_black .debug tile.dark[filled='filled'].valid {
             background: hsl(210, 90%, 90%);
         }
         .turn_white tile[filled='filled'].valid:hover {
@@ -96,7 +96,7 @@ tile {
     .debug tile[filled='filled'].dangerous {
         box-shadow: inset 0 0 0 5px hsl(0, 100%, 95%);
     }
-        .debug tile:nth-of-type(2n)[filled='filled'].dangerous {
+        .debug tile.dark[filled='filled'].dangerous {
             box-shadow: inset 0 0 0 5px hsl(0, 90%, 90%);
         }
     tile .tile_xy {

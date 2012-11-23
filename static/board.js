@@ -34,10 +34,27 @@ function drawBoard() {
     if (BOARD_HEIGHT * TILE_SIZE > $(window).height()) {
         var too_tall = true;
     }
+    if (BOARD_WIDTH % 2 == 0) {
+        var even = true;
+    }
 
     $('tile')
         .width(TILE_SIZE)
         .height(TILE_SIZE);
+
+    var tiles = $('tile');
+    for (var i=0, j=1; i < tiles.length; i++, j++) {
+        if (j % 2 == 0) {
+            $(tiles[i]).addClass('dark');
+        }
+        if ((i + 1) % BOARD_WIDTH == 0 && even) {
+            if (j % 2) {
+                j = 0;
+            } else {
+                j = 1;
+            }
+        }
+    }
 
     $('piece')
         .width(TILE_SIZE)
