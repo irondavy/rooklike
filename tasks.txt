@@ -8,7 +8,7 @@
 
 # Bugs
 
-[ ] Mobile input
+[ ] Find new icons for mobile safari
 
 # AI
 
@@ -33,6 +33,7 @@
 [x] Display game ends in UI
 [x] Fix flash of undrawn board
 [-] Fix invalid movement bug // Can't figure out how to repro
+[x] Mobile input
 
 # Level Editor
 

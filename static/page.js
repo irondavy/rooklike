@@ -21,6 +21,10 @@ $(document).ready(function() {
         }
     });
 
+    $('#edit [name=template]').keyup(function(e) {
+        console.log($(this).val());
+    });
+
     $('#edit [name=title]').keyup(function() {
         $('#delete_dialog strong #delete_dialog_token').text($(this).val());
     });

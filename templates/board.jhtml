@@ -36,10 +36,10 @@
 
     <div id='game_over_dialog' class='dialog'>
         <div id='game_over_win' class='dialog_inner'>
-            Victory! White has captured all remaining black tiles.
+            Victory! White has captured all remaining black pieces.
         </div>
         <div id='game_over_lose' class='dialog_inner'>
-            Game Over. Black has captured all remaining white tiles.
+            Game Over. Black has captured all remaining white pieces.
         </div>
     </div>
 
