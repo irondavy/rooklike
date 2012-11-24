@@ -8,20 +8,18 @@
 
 # Bugs
 
-[ ] Fix invalid movement bug // Can't figure out how to repro
+[ ] Mobile input
 
 # AI
 
-[ ] Improved AI
-    - Capture math
-    - Don't block captures
-    - More intelligent turn ordering
+[ ] Use piece values to determine if capture is worth it
+[ ] More intelligent turn ordering
+[ ] Avoid blocking captures of other pieces
 
 # Gameplay
 
 [ ] Knights
 [ ] Random board generation
-[ ] Dungeon exits
 
 # UI
 
@@ -34,6 +32,7 @@
 [x] End game on black loss
 [x] Display game ends in UI
 [x] Fix flash of undrawn board
+[-] Fix invalid movement bug // Can't figure out how to repro
 
 # Level Editor
 
@@ -46,6 +45,5 @@
 # UI
 
 [x] Add back buttons
-[x] Mobile input
 [x] Restart after finish
 [x] Responsive UI

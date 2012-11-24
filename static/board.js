@@ -8,17 +8,7 @@ $(document).ready(function() {
         debug(true);
     }
 
-    $(document).on('click',
-        'piece.unlocked',
-        function() {
-            var self = $(this);
-            if (self.parent().hasClass('selected')) {
-                deselectPiece(self);
-            } else {
-                deselectPiece($('.selected piece'));
-                selectPiece(self);
-            }
-        });
+    bindPieces();
 
     playWhite();
 
@@ -127,6 +117,19 @@ function drawBoard() {
             self.removeClass('unlocked')
                 .addClass('locked')
                 .addClass('unplayed');
+        }
+    });
+}
+
+function bindPieces() {
+    $('piece.unlocked').unbind();
+    $('piece.unlocked').click(function() {
+        var self = $(this);
+        if (self.parent().hasClass('selected')) {
+            deselectPiece(self);
+        } else {
+            deselectPiece($('.selected piece'));
+            selectPiece(self);
         }
     });
 }
@@ -323,6 +326,7 @@ function resetRound() {
     $('piece').filter('[color=white]')
         .removeClass('locked')
         .addClass('unlocked');
+    bindPieces();
 }
 
 function playWhite() {
