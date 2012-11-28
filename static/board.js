@@ -158,9 +158,6 @@ function deselectPiece(piece) {
     piece.parent('tile').removeClass('selected');
     $('.valid, .valid piece').unbind();
     $('.valid').removeClass('valid');
-    piece
-        .removeClass('locked')
-        .addClass('unlocked');
 }
 
 function movePiece(piece, tile, callback) {
