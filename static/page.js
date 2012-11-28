@@ -7,7 +7,6 @@ $(document).ready(function() {
         if (extra_space > 0) {
             $(this).find('.title').css('margin-bottom', extra_space);
         } else {
-            console.log(map_height, title_height);
             extra_height = (map_height - (150 - title_height)) / 2;
             if (extra_height > 0) {
                 $(this).find('.template').css('top', -extra_height);
@@ -15,9 +14,10 @@ $(document).ready(function() {
         }
 
         map_width = $(this).find('.template').width();
-        extra_width = (map_width - 204) / 2;
+        link_width = $(this).width() + 2;
+        extra_width = (map_width - link_width) / 2;
         if (extra_width > 0) {
-            $(this).find('.template').css('left', -extra_width);
+            $(this).find('.template').css('left', -(extra_width - 4));
         }
     });
 
