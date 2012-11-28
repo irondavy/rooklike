@@ -1,0 +1,44 @@
+<div id='instructions'>
+    <div id='instructions_text'>
+        The template format is a grid of ASCII characters. For now, a grid must be a rectangle with odd-numbered dimensions and every tile defined.
+    </div>
+    <div>
+        <div id='instructions_key'>
+            <h3>Key</h3>
+            <dl>
+                <dt>.</dt>
+                <dd>Empty Tile</dd>
+                <dt>#</dt>
+                <dd>Wall</dd>
+                <dt>N</dt>
+                <dd>White Knight</dd>
+                <dt>B</dt>
+                <dd>White Bishop</dd>
+                <dt>R</dt>
+                <dd>White Rook</dd>
+                <dt>Q</dt>
+                <dd>White Queen</dd>
+                <dt>n</dt>
+                <dd>Black Knight</dd>
+                <dt>b</dt>
+                <dd>Black Bishop</dd>
+                <dt>r</dt>
+                <dd>Black Rook</dd>
+                <dt>q</dt>
+                <dd>Black Queen</dd>
+            </dl>
+        </div>
+        <div id='instructions_example'>
+            <h3>Example</h3>
+            <code>
+            .......##<br />
+            .Q......#<br />
+            ....#....<br />
+            ...###...<br />
+            ....#....<br />
+            #......r.<br />
+            ##.......
+            </code>
+        </div>
+    </div>
+</div>

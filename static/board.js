@@ -158,6 +158,7 @@ function deselectPiece(piece) {
     piece.parent('tile').removeClass('selected');
     $('.valid, .valid piece').unbind();
     $('.valid').removeClass('valid');
+    if (DEBUG) { $('.unblocked').removeClass('unblocked'); }
 }
 
 function movePiece(piece, tile, callback) {
@@ -216,6 +217,8 @@ function checkSquares(piece, is_enemy) {
         checkDirections(piece_class, is_enemy, ['NE', 'SE', 'SW', 'NW']);
     } else if (piece_class.type == 'rook') {
         checkDirections(piece_class, is_enemy, ['N', 'E', 'S', 'W']);
+    } else if (piece_class.type == 'knight') {
+        checkKnightDirections(piece_class, is_enemy)
     }
 }
 
@@ -297,6 +300,54 @@ function checkTile(piece_class, is_enemy, x, y) {
             }
         }
         tile.addClass(check_class);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function checkKnightDirections(piece_class, is_enemy) {
+    var p_x = piece_class.x;
+    var p_y = piece_class.y;
+
+    if (pathTile(p_x, p_y - 1) && pathTile(p_x, p_y - 2) ||
+        pathTile(p_x + 1, p_y) && pathTile(p_x + 1, p_y - 1)) {
+        checkTile(piece_class, is_enemy, p_x + 1, p_y - 2);
+    }
+    if (pathTile(p_x, p_y - 1) && pathTile(p_x + 1, p_y - 1) ||
+        pathTile(p_x + 1, p_y) && pathTile(p_x + 2, p_y)) {
+        checkTile(piece_class, is_enemy, p_x + 2, p_y - 1);
+    }
+    if (pathTile(p_x + 1, p_y) && pathTile(p_x + 2, p_y) ||
+        pathTile(p_x, p_y + 1) && pathTile(p_x + 1, p_y + 1)) {
+        checkTile(piece_class, is_enemy, p_x + 2, p_y + 1);
+    }
+    if (pathTile(p_x + 1, p_y) && pathTile(p_x + 1, p_y + 1) ||
+        pathTile(p_x, p_y + 1) && pathTile(p_x, p_y + 2)) {
+        checkTile(piece_class, is_enemy, p_x + 1, p_y + 2);
+    }
+    if (pathTile(p_x, p_y + 1) && pathTile(p_x, p_y + 2) ||
+        pathTile(p_x + 1, p_y) && pathTile(p_x + 1, p_y + 1)) {
+        checkTile(piece_class, is_enemy, p_x - 1, p_y + 2);
+    }
+    if (pathTile(p_x, p_y + 1) && pathTile(p_x - 1, p_y + 1) ||
+        pathTile(p_x - 1, p_y) && pathTile(p_x - 2, p_y)) {
+        checkTile(piece_class, is_enemy, p_x - 2, p_y + 1);
+    }
+    if (pathTile(p_x - 1, p_y) && pathTile(p_x - 2, p_y) ||
+        pathTile(p_x, p_y - 1) && pathTile(p_x - 1, p_y - 1)) {
+        checkTile(piece_class, is_enemy, p_x - 2, p_y - 1);
+    }
+    if (pathTile(p_x - 1, p_y) && pathTile(p_x - 1, p_y -1) ||
+        pathTile(p_x, p_y - 1) && pathTile(p_x, p_y - 2)) {
+        checkTile(piece_class, is_enemy, p_x - 1, p_y - 2);
+    }
+}
+
+function pathTile(x, y) {
+    var tile = $('tile[x='+x+'][y='+y+']');
+    if (tile.attr('filled') == 'filled') {
+        if (DEBUG) { tile.addClass('unblocked'); }
         return true;
     } else {
         return false;
