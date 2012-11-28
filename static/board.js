@@ -138,7 +138,7 @@ function selectPiece(piece) {
     piece.trigger('startRumble');
     piece.parent('tile').addClass('selected');
 
-    console.log('Selected ' + piece.attr('type') + ' at ' + piece.parent().attr('x') + ',' + piece.parent().attr('y'));
+    debugLog('Selected ' + piece.attr('type') + ' at ' + piece.parent().attr('x') + ',' + piece.parent().attr('y'));
 
     checkSquares(piece, false);
 
@@ -170,7 +170,7 @@ function movePiece(piece, tile, callback) {
     new_y = tile.attr('y');
 
     log_type = piece.attr('type').charAt(0).toUpperCase() + piece.attr('type').slice(1)
-    console.log(log_type + ' at ' + old_x + ',' + old_y + ' moving to ' + new_x + ',' + new_y);
+    debugLog(log_type + ' at ' + old_x + ',' + old_y + ' moving to ' + new_x + ',' + new_y);
 
     piece.css('position', 'relative');
 
@@ -330,12 +330,12 @@ function resetRound() {
 }
 
 function playWhite() {
-    console.log('### Turn: White ###');
+    debugLog('### Turn: White ###');
     $('body').removeClass().addClass('turn_white');
 }
 
 function playBlack() {
-    console.log('### Turn: Black ###');
+    debugLog('### Turn: Black ###');
     $('body').removeClass().addClass('turn_black');
     playNextBlackPiece();
 }
@@ -352,27 +352,27 @@ function playNextBlackPiece() {
         // If there are no valid pieces, stay in position
         valid_tiles = $('.valid');
         if (valid_tiles.length == 0) {
-            console.log('Can\'t move');
+            debugLog('Can\'t move');
             new_tile = piece.parent();
         } else {
 
             // If there are pieces to capture, capture a random one
             piece_tiles = $('.valid').has('piece[color=white]');
             if (piece_tiles.length) {
-                console.log('Capturing a piece.');
+                debugLog('Capturing a piece.');
                 new_tile = getRandomTile(piece_tiles);
             } else {
 
                 // If there are safe tiles, go to a random one
                 safe_tiles = $('.valid').not('.dangerous');
                 if (safe_tiles.length) {
-                    console.log('Going to a safe tile.')
+                    debugLog('Going to a safe tile.');
                     new_tile = getRandomTile(safe_tiles);
                 } else {
 
                     // Pick a random dangerous tile
                     dangerous_tiles = $('.valid.dangerous');
-                    console.log('Going to a dangerous tile.')
+                    debugLog('Going to a dangerous tile.');
                     new_tile = getRandomTile(dangerous_tiles);
 
                 }
@@ -399,7 +399,7 @@ function getRandomTile(tiles) {
 
 function getValue(piece) {
     type = piece.attr('type');
-    console.log('Found a ' + type);
+    debugLog('Found a ' + type);
     if (type == 'queen') {
         return 3;
     } else if (type == 'rook') {
@@ -411,10 +411,10 @@ function getValue(piece) {
 
 function declareWinner(color) {
     if (color == 'white') {
-        console.log('White wins: all black tiles have been captured');
+        debugLog('White wins: all black tiles have been captured');
         $('#game_over_win').show();
     } else {
-        console.log('Black wins: all white tiles have been captured');
+        debugLog('Black wins: all white tiles have been captured');
         $('#game_over_lose').show();
     }
     $('#game_over_dialog')
@@ -454,8 +454,16 @@ function debug(bool) {
         $('tile[filled=filled]').each(function() {
             $(this).prepend('<span class=\'tile_xy\'>' + $(this).attr('x') + (',') + $(this).attr('y') + '</span>')
         });
+        return true;
     } else {
         $('board').removeClass('debug');
+        return false;
+    }
+}
+
+function debugLog(str) {
+    if (str && DEBUG) {
+        console.log(str);
     }
 }
 

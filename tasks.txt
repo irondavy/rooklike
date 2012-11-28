@@ -4,11 +4,19 @@
 
 [ ] Validate levels
 
+# Gameplay
+
+[ ] Knights
+
 === Future
 
 # Bugs
 
 [ ] Find new icons for mobile safari
+
+# Level Editor
+
+[ ] Implement user authentication
 
 # AI
 
@@ -17,8 +25,6 @@
 [ ] Avoid blocking captures of other pieces
 
 # Gameplay
-
-[ ] Knights
 [ ] Random board generation
 
 # UI
