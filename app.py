@@ -51,16 +51,55 @@ def format_template(template):
     return template
 
 
+def validate_template(template):
+    ''' Takes a formated template and returns True if the template is valid '''
+
+    valid_chars = '.#NnBbRrQq'
+    white_chars = 'NBRQ'
+    black_chars = 'nbrq'
+    errors = {
+        'invalid_chars': False,
+        'invalid_grid': False,
+        'no_white': True,
+        'no_black': True
+    }
+    line_lengths = []
+
+    i = 0
+    for line in template:
+        line = line.rstrip()
+        for tile in line:
+            if (tile in valid_chars) == False:
+                errors['invalid_chars'] = True
+            elif tile in white_chars:
+                errors['no_white'] = False;
+            elif tile in black_chars:
+                errors['no_black'] = False;
+            i = i + 1
+        line_lengths.append(i)
+        i = 0
+
+    i = 0
+    for length in line_lengths:
+        if i > 0 and length != line_lengths[i-1]:
+            errors['invalid_grid'] = True
+        i = i + 1
+
+    if True in errors.values():
+        return False
+    return True
+
+
 def convert_template(template):
     ''' Takes a template and returns a board (represented as a dictionary) '''
 
     pieces = {
-        'k': 'king',
         'q': 'queen',
         'r': 'rook',
         'b': 'bishop',
-        'n': 'knight',
-        'p': 'pawn'
+        'n': 'knight'
+        # 'k': 'king',
+        # 'p': 'pawn'
     }
 
     squares = []
@@ -76,7 +115,7 @@ def convert_template(template):
                 filled = 'empty'
 
             piece = pieces.get(str.lower(tile), None)
-            
+
             color = 'white'
             if str.islower(tile):
                 color = 'black'
@@ -110,10 +149,14 @@ def add():
     title = 'Untitled'
     if request.form['title']:
         title = request.form['title']
-    board = Board(title, request.form['template'])
-    db.session.add(board)
-    db.session.commit()
-    return redirect(url_for('list'))
+    template = request.form['template']
+    if validate_template(format_template(template)):
+        board = Board(title, template)
+        db.session.add(board)
+        db.session.commit()
+        return redirect(url_for('list'))
+    else:
+        return redirect(url_for('list'))
 
 
 @app.route('/edit/<int:id>')
@@ -136,10 +179,12 @@ def delete():
 @app.route('/update', methods=['POST'])
 def update():
     id = request.form['id']
-    board = Board.query.get(id)
-    board.title = request.form['title']
-    board.template = request.form['template']
-    db.session.commit()
+    template = request.form['template']
+    if validate_template(format_template(template)):
+        board = Board.query.get(id)
+        board.title = request.form['title']
+        board.template = template
+        db.session.commit()
     return redirect(url_for('play_id', id=id))
 
 
@@ -148,7 +193,10 @@ def play_id(id):
     board_query = Board.query.get(id)
     title = board_query.title.upper()
     board = convert_template(format_template(board_query.template))
-    return render_template('board.jhtml', id=id, title=title, board=board)
+    if board:
+        return render_template('board.jhtml', id=id, title=title, board=board)
+    else:
+        return redirect(url_for('list'))
 
 
 if __name__ == '__main__':

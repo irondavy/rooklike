@@ -38,7 +38,7 @@ $(document).ready(function() {
                 var valid_chars = '.#NnBbRrQq\n';
                 var white_chars = 'NBRQ';
                 var black_chars = 'nbrq';
-                var errors = {
+                var error_states = {
                     'invalid_chars': false,
                     'invalid_grid': false,
                     'no_white': true,
@@ -48,38 +48,39 @@ $(document).ready(function() {
 
                 for (var i=0, j=1; i < template.length; i++, j++) {
                     if (valid_chars.indexOf(template[i]) == -1) {
-                        errors['invalid_chars'] = true;
+                        error_states['invalid_chars'] = true;
                     } else if (template[i] == '\n') {
                         line_lengths.push(j);
                         j = 0;
                     } else if (white_chars.indexOf(template[i]) > -1) {
-                        errors['no_white'] = false;
+                        error_states['no_white'] = false;
                     } else if (black_chars.indexOf(template[i]) > -1) {
-                        errors['no_black'] = false;
+                        error_states['no_black'] = false;
                     }
                 }
                 line_lengths.push(j);
 
                 for (var i=0; i < line_lengths.length; i++) {
                     if (i > 0 && line_lengths[i] != line_lengths[i-1]) {
-                        errors['invalid_grid'] = true;
+                        error_states['invalid_grid'] = true;
                     }
                 }
 
-                if ($.inArray(true, errors)) {
-                    error_messages = []
-                    if (errors['invalid_chars']) {
-                        error_messages.push('Your template contains invalid characters.');
+                error_copy = {
+                        'invalid_chars': 'Your template contains invalid characters.',
+                        'invalid_grid': 'Each row of your template needs to be the same length.',
+                        'no_white': 'Your board needs at least one white piece.',
+                        'no_black': 'Your board needs at least one black piece.'
                     }
-                    if (errors['invalid_grid']) {
-                        error_messages.push('Each row of your template needs to be the same length.');
+
+                error_messages = []
+                for (var error in error_states) {
+                    if (error_states[error]) {
+                        error_messages.push(error_copy[error]);
                     }
-                    if (errors['no_white']) {
-                        error_messages.push('Your board needs at least one white piece.');
-                    }
-                    if (errors['no_black']) {
-                        error_messages.push('Your board needs at least one black piece.');
-                    }
+                }
+
+                if (error_messages.length) {
                     $('#error').html(error_messages.join(' ')).show();
                 } else {
                     $('#edit_form').submit();
