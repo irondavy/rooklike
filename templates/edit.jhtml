@@ -4,17 +4,18 @@
     <a href='{{ url_for('play_id', id=id) }}' class='back'>&larr; Play</a>
 
     <div id='edit'>
-        <form action='{{ url_for('update') }}' method='post' autocomplete='off'>
+        <form id='edit_form' action='{{ url_for('update') }}' method='post' autocomplete='off'>
             <h2>Edit Board</h2>
             <input name='title' placeholder='Title' value='{{ title }}'>
             <div id='template'>
                 {% include 'instructions.jhtml' %}
+                <div id='error'>There was a problem with your template.</div>
                 <textarea name='template' placeholder='Template'>{{ template }}</textarea>
                 <input name='id' type='hidden' value='{{ id }}' />
             </div>
             <div id='buttons'>
                 <a id='delete' href="#">Delete</a>
-                <input type='submit' value='Save'>
+                <input id='edit_submit' type='submit' value='Save'>
             </div>
         </form>
         <div id='delete_dialog' class='dialog'>

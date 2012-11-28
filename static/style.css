@@ -246,6 +246,18 @@ piece {
         font-family: Courier;
         letter-spacing: .5em;
     }
+    #edit #error {
+        margin-bottom: 18px;
+        background: hsl(10, 50%, 40%);
+        color: hsl(0, 0%, 100%);
+        border: 1px solid hsl(10, 50%, 60%);
+        width: 480px;
+        padding: 7px 9px;
+        line-height: 1.2;
+        font-size: 16px;
+        box-sizing: border-box;
+        display: none;
+    }
     #edit #buttons {
         padding-right: 220px;
         text-align: right;

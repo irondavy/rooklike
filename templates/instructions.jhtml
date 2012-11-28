@@ -1,6 +1,6 @@
 <div id='instructions'>
     <div id='instructions_text'>
-        The template format is a grid of ASCII characters. For now, a grid must be a rectangle with odd-numbered dimensions and every tile defined.
+        The template format is a grid of ASCII characters. A grid must be a rectangle with every tile defined.
     </div>
     <div>
         <div id='instructions_key'>
