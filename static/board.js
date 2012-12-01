@@ -1,17 +1,10 @@
-var DEBUG = false;
+DEBUG = false;
 
 $(document).ready(function() {
-
     drawBoard();
-
-    if (DEBUG) {
-        debug(true);
-    }
-
     bindPieces();
-
+    piece_selected = false;
     playWhite();
-
 });
 
 function drawBoard() {
@@ -59,7 +52,7 @@ function drawBoard() {
         .height(BOARD_HEIGHT * TILE_SIZE);
 
     if (too_tall && !too_wide) {
-        // console.log('too tall but not too wide');
+        debugLog('The board is too tall, but not too wide.');
         $('board')
             .css({
                 'position': 'static',
@@ -67,7 +60,7 @@ function drawBoard() {
                 'display': 'block'
             });
     } else if (too_wide && !too_tall) {
-        // console.log('too wide but not too tall');
+        debugLog('The board is too wide, but not too tall.');
         $('board')
             .css({
                 'position': 'relative',
@@ -80,7 +73,7 @@ function drawBoard() {
                 'position': 'fixed'
             });
     } else if (too_tall && too_wide) {
-        // console.log('too tall and too wide');
+        debugLog('The board is both too tall, and too wide.');
         $('board')
             .css({
                 'display': 'block',
@@ -92,7 +85,7 @@ function drawBoard() {
                 'margin': '100px 0 -50px'
             });
     } else {
-        // console.log('not too tall and not too wide');
+        debugLog('The board is not too tall, and not too wide.');
         $('board')
             .css({
                 'position': 'absolute',
@@ -118,6 +111,11 @@ function drawBoard() {
                 .addClass('unplayed');
         }
     });
+
+    if (DEBUG) {
+        DEBUG = !DEBUG;
+        debug();
+    }
 }
 
 function bindPieces() {
@@ -125,17 +123,20 @@ function bindPieces() {
     $('piece.unlocked')
         .jrumble({ speed: 150 })
         .click(function() {
-            var self = $(this);
-            if (self.parent().hasClass('selected')) {
-                deselectPiece(self);
-            } else {
-                deselectPiece($('.selected piece'));
-                selectPiece(self);
+            if (piece_selected == false) {
+                var self = $(this);
+                if (self.parent().hasClass('selected')) {
+                    deselectPiece(self);
+                } else {
+                    deselectPiece($('.selected piece'));
+                    selectPiece(self);
+                }
             }
         });
 }
 
 function selectPiece(piece) {
+    piece_selected = true;
     piece.trigger('startRumble');
     piece.parent('tile').addClass('selected');
 
@@ -149,7 +150,6 @@ function selectPiece(piece) {
         } else {
             var tile = $(this).parent();
         }
-        deselectPiece(piece);
         movePiece(piece, tile);
     });
 }
@@ -157,12 +157,15 @@ function selectPiece(piece) {
 function deselectPiece(piece) {
     piece.trigger('stopRumble');
     piece.parent('tile').removeClass('selected');
-    $('.valid, .valid piece').unbind();
-    $('.valid').removeClass('valid');
-    if (DEBUG) { $('.unblocked').removeClass('unblocked'); }
+    uncheckSquares();
+    piece_selected = false;
 }
 
 function movePiece(piece, tile, callback) {
+    piece.trigger('stopRumble');
+    piece.parent('tile').removeClass('selected');
+    uncheckSquares();
+
     old_x = piece.parent().attr('x');
     old_y = piece.parent().attr('y');
     new_x = tile.attr('x');
@@ -176,26 +179,29 @@ function movePiece(piece, tile, callback) {
     var animation_speed = 500;
     if (DEBUG) { animation_speed = 1500; } 
     piece.animate({
-        'left': '+='+(TILE_SIZE * (new_x - old_x)),
-        'top': '+='+(TILE_SIZE * (new_y - old_y))
-    }, animation_speed, function() {
-        if (tile.children('piece').length) {
-            tile.children('piece').remove();
+            'left': '+='+(TILE_SIZE * (new_x - old_x)),
+            'top': '+='+(TILE_SIZE * (new_y - old_y))},
+        animation_speed,
+        function() {
+            if (tile.children('piece').length) {
+                tile.children('piece').remove();
+            }
+            piece
+                .appendTo(tile)
+                .css({
+                    'position': 'relative',
+                    'left': 0,
+                    'top': 0
+                })
+                .removeClass('unlocked')
+                .addClass('locked');
+            piece_selected = false;
+            checkTurn();
+            if (callback) {
+                callback();
+            }
         }
-        piece
-            .appendTo(tile)
-            .css({
-                'position': 'relative',
-                'left': 0,
-                'top': 0
-            })
-            .removeClass('unlocked')
-            .addClass('locked');
-        checkTurn();
-        if (callback) {
-            callback();
-        }
-    });
+    );
 }
 
 function Piece(type,color, x, y) {
@@ -223,6 +229,12 @@ function checkSquares(piece, is_enemy) {
     } else if (piece_class.type == 'knight') {
         checkKnightDirections(piece_class, is_enemy);
     }
+}
+
+function uncheckSquares() {
+    $('.valid, .valid piece').unbind();
+    $('.valid').removeClass('valid');
+    if (DEBUG) { $('.unblocked').removeClass('unblocked'); }
 }
 
 function checkDirections(piece_class, is_enemy, directions) {
