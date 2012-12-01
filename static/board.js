@@ -112,7 +112,6 @@ function drawBoard() {
 
     $('piece').each(function() {
         var self = $(this);
-        self.jrumble({ speed: 150 });
         if (self.attr('color') == 'black') {
             self.removeClass('unlocked')
                 .addClass('locked')
@@ -123,15 +122,17 @@ function drawBoard() {
 
 function bindPieces() {
     $('piece.unlocked').unbind();
-    $('piece.unlocked').click(function() {
-        var self = $(this);
-        if (self.parent().hasClass('selected')) {
-            deselectPiece(self);
-        } else {
-            deselectPiece($('.selected piece'));
-            selectPiece(self);
-        }
-    });
+    $('piece.unlocked')
+        .jrumble({ speed: 150 })
+        .click(function() {
+            var self = $(this);
+            if (self.parent().hasClass('selected')) {
+                deselectPiece(self);
+            } else {
+                deselectPiece($('.selected piece'));
+                selectPiece(self);
+            }
+        });
 }
 
 function selectPiece(piece) {
@@ -158,10 +159,7 @@ function deselectPiece(piece) {
     piece.parent('tile').removeClass('selected');
     $('.valid, .valid piece').unbind();
     $('.valid').removeClass('valid');
-    if (DEBUG) {
-        console.log('removing unblocked');
-        $('.unblocked').removeClass('unblocked');
-    }
+    if (DEBUG) { $('.unblocked').removeClass('unblocked'); }
 }
 
 function movePiece(piece, tile, callback) {
