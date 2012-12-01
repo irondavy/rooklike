@@ -35,9 +35,9 @@ $(document).ready(function() {
             template = $('#edit [name=template]').val();
 
             if (template.length) {
-                var valid_chars = '.#NnBbRrQq\n';
-                var white_chars = 'NBRQ';
-                var black_chars = 'nbrq';
+                var valid_chars = '.#NnBbRrQqKk\n';
+                var white_chars = 'NBRQK';
+                var black_chars = 'nbrqk';
                 var error_states = {
                     'invalid_chars': false,
                     'invalid_grid': false,

@@ -18,6 +18,8 @@
                 <dd>White Rook</dd>
                 <dt>Q</dt>
                 <dd>White Queen</dd>
+                <dt>K</dt>
+                <dd>White King</dd>
                 <dt>n</dt>
                 <dd>Black Knight</dd>
                 <dt>b</dt>
@@ -26,6 +28,8 @@
                 <dd>Black Rook</dd>
                 <dt>q</dt>
                 <dd>Black Queen</dd>
+                <dt>k</dt>
+                <dd>Black King</dd>
             </dl>
         </div>
         <div id='instructions_example'>

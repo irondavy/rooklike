@@ -54,9 +54,9 @@ def format_template(template):
 def validate_template(template):
     ''' Takes a formated template and returns True if the template is valid '''
 
-    valid_chars = '.#NnBbRrQq'
-    white_chars = 'NBRQ'
-    black_chars = 'nbrq'
+    valid_chars = '.#NnBbRrQqKk'
+    white_chars = 'NBRQK'
+    black_chars = 'nbrqk'
     errors = {
         'invalid_chars': False,
         'invalid_grid': False,
@@ -97,8 +97,8 @@ def convert_template(template):
         'q': 'queen',
         'r': 'rook',
         'b': 'bishop',
-        'n': 'knight'
-        # 'k': 'king',
+        'n': 'knight',
+        'k': 'king'
         # 'p': 'pawn'
     }
 

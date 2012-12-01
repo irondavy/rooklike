@@ -214,14 +214,16 @@ function checkSquares(piece, is_enemy) {
     var y = parseInt(piece.parent().attr('y'));
     piece_class = new Piece(type, color, x, y)
 
-    if (piece_class.type == 'queen') {
+    if (piece_class.type == 'king') {
+        checkKingDirections(piece_class, is_enemy);
+    } else if (piece_class.type == 'queen') {
         checkDirections(piece_class, is_enemy, ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']);
-    } else if (piece_class.type == 'bishop') {
-        checkDirections(piece_class, is_enemy, ['NE', 'SE', 'SW', 'NW']);
     } else if (piece_class.type == 'rook') {
         checkDirections(piece_class, is_enemy, ['N', 'E', 'S', 'W']);
+    } else if (piece_class.type == 'bishop') {
+        checkDirections(piece_class, is_enemy, ['NE', 'SE', 'SW', 'NW']);
     } else if (piece_class.type == 'knight') {
-        checkKnightDirections(piece_class, is_enemy)
+        checkKnightDirections(piece_class, is_enemy);
     }
 }
 
@@ -355,6 +357,19 @@ function pathTile(x, y) {
     } else {
         return false;
     }
+}
+
+function checkKingDirections(piece_class, is_enemy) {
+    var p_x = piece_class.x;
+    var p_y = piece_class.y;
+    checkTile(piece_class, is_enemy, p_x, p_y - 1);
+    checkTile(piece_class, is_enemy, p_x + 1, p_y - 1);
+    checkTile(piece_class, is_enemy, p_x + 1, p_y);
+    checkTile(piece_class, is_enemy, p_x + 1, p_y + 1);
+    checkTile(piece_class, is_enemy, p_x, p_y + 1);
+    checkTile(piece_class, is_enemy, p_x - 1, p_y + 1);
+    checkTile(piece_class, is_enemy, p_x - 1, p_y);
+    checkTile(piece_class, is_enemy, p_x - 1, p_y - 1);
 }
 
 function checkTurn() {
