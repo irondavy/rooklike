@@ -99,10 +99,10 @@ tile {
         .debug tile.dark[filled='filled'].dangerous {
             box-shadow: inset 0 0 0 5px hsl(0, 90%, 90%);
         }
-    tile[filled='filled'].unblocked {
+    .turn_white .debug tile[filled='filled'].unblocked {
         background: hsl(50, 100%, 95%);
     }
-        tile.dark[filled='filled'].unblocked {
+        .turn_white .debug tile.dark[filled='filled'].unblocked {
             background: hsl(50, 90%, 90%);
         }
     tile .tile_xy {

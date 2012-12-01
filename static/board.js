@@ -158,7 +158,10 @@ function deselectPiece(piece) {
     piece.parent('tile').removeClass('selected');
     $('.valid, .valid piece').unbind();
     $('.valid').removeClass('valid');
-    if (DEBUG) { $('.unblocked').removeClass('unblocked'); }
+    if (DEBUG) {
+        console.log('removing unblocked');
+        $('.unblocked').removeClass('unblocked');
+    }
 }
 
 function movePiece(piece, tile, callback) {
@@ -433,6 +436,7 @@ function playNextBlackPiece() {
         movePiece(piece, new_tile, function() {
             $('.dangerous').removeClass('dangerous');
             $('.valid').removeClass('valid');
+            if (DEBUG) { $('.unblocked').removeClass('unblocked'); }
             playNextBlackPiece();
         });
     } else {
@@ -495,16 +499,18 @@ function showReplay() {
     $(document).unbind('keyup', escCloseWinnerDialog);
 }
 
-function debug(bool) {
-    DEBUG = bool;
-    if (DEBUG) {
+function debug() {
+    if (!DEBUG) {
+        DEBUG = true;
         $('board').addClass('debug');
         $('tile[filled=filled]').each(function() {
             $(this).prepend('<span class=\'tile_xy\'>' + $(this).attr('x') + (',') + $(this).attr('y') + '</span>')
         });
         return true;
     } else {
+        DEBUG = false;
         $('board').removeClass('debug');
+        $('.tile_xy').remove();
         return false;
     }
 }

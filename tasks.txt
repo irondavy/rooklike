@@ -1,22 +1,15 @@
 === Next
 
-# Level Editor
-
-[ ] Validate levels
-
-# Gameplay
-
-[ ] Knights
+[ ] Find new icons for mobile safari
+[ ] Twitter user auth http://packages.python.org/Flask-OAuth/
 
 === Future
 
 # Bugs
 
-[ ] Find new icons for mobile safari
+[ ] Unblocked class not being removed
 
 # Level Editor
-
-[ ] Implement user authentication
 
 # AI
 
@@ -47,7 +40,13 @@
 [x] Switch to postgres // http://blog.y3xz.com/blog/2012/08/16/flask-and-postgresql-on-heroku/
 [x] Edit existing levels
 [x] Delete existing levels[x] Accommodate even numbered dimensions
+[x] Validate levels
 
+# AI
+
+# Gameplay
+
+[x] Knights
 
 # UI
 
