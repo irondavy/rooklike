@@ -16,14 +16,16 @@
         <a href="/">Rooklike</a>
     </h1>
 
-    <a href='{{ url_for('list') }}' class='back'>&larr; Boards</a>
-    <a href='{{ url_for('edit', id=id) }}' class='forwards'>&#63490; Edit</a>
+    <a href='{{ url_for('boards') }}' class='back'>&larr; Boards</a>
+    {% if show_edit %}
+        <a href='{{ url_for('edit', bid=bid) }}' class='forwards'>&#63490; Edit</a>
+    {% endif %}
 
     <h2 id='board_title'>{{ title }}</h2>
 
-    <board width='{{ board.width }}' height='{{ board.height }}' class='show_valid'>
+    <board width='{{ template.width }}' height='{{ template.height }}' class='show_valid'>
 
-        {% for square in board.squares %}
+        {% for square in template.squares %}
             <tile filled='{{ square.filled }}' x='{{ square.x }}' y='{{ square.y }}'>
 
                 {% if square.piece %}

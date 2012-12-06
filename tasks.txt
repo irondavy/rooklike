@@ -1,13 +1,15 @@
 === Next
 
 [ ] Find new icons for mobile safari
-[ ] Twitter user auth http://packages.python.org/Flask-OAuth/
+[ ] Add success and error flashes throughout
+    - Good login
+    - Bad login
+    - Not owner
+    - Bad board creation
 
 === Future
 
 # Bugs
-
-[ ] Unblocked class not being removed
 
 # Level Editor
 
@@ -33,6 +35,7 @@
 [x] Fix flash of undrawn board
 [-] Fix invalid movement bug // Can't figure out how to repro
 [x] Mobile input
+[x] Unblocked class not being removed
 
 # Level Editor
 
@@ -41,12 +44,16 @@
 [x] Edit existing levels
 [x] Delete existing levels[x] Accommodate even numbered dimensions
 [x] Validate levels
+[x] Twitter user auth http://packages.python.org/Flask-OAuth/
 
 # AI
+
+[x] Avoid dangerous tiles
 
 # Gameplay
 
 [x] Knights
+[x] Kings
 
 # UI
 

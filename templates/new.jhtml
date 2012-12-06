@@ -1,7 +1,7 @@
 {% extends 'layout.jhtml' %}
 {% block body %}
 
-    <a class='back' href='{{ url_for('list') }}'>&larr; Boards</a>
+    <a class='back' href='{{ url_for('boards') }}'>&larr; Boards</a>
 
     <div id='edit'>
         <form id='edit_form' action='{{ url_for('add') }}' method='post' autocomplete='off'>
@@ -11,6 +11,7 @@
                 {% include 'instructions.jhtml' %}
                 <div id='error'>There was a problem with your template.</div>
                 <textarea name='template' placeholder='Template'></textarea>
+                <input name='uid' type='hidden' value='{{ uid }}' />
             </div>
             <div id='buttons'>
                 <input id='edit_submit' type='submit' value='Create'>

@@ -1,7 +1,7 @@
 {% extends 'layout.jhtml' %}
 {% block body %}
 
-    <a href='{{ url_for('play_id', id=id) }}' class='back'>&larr; Play</a>
+    <a href='{{ url_for('play', bid=bid) }}' class='back'>&larr; Play</a>
 
     <div id='edit'>
         <form id='edit_form' action='{{ url_for('update') }}' method='post' autocomplete='off'>
@@ -11,7 +11,7 @@
                 {% include 'instructions.jhtml' %}
                 <div id='error'>There was a problem with your template.</div>
                 <textarea name='template' placeholder='Template'>{{ template }}</textarea>
-                <input name='id' type='hidden' value='{{ id }}' />
+                <input name='bid' type='hidden' value='{{ bid }}' />
             </div>
             <div id='buttons'>
                 <a id='delete' href="#">Delete</a>
@@ -23,7 +23,7 @@
                 <strong>Are you sure you want to delete <span id='delete_dialog_title'><span id='delete_dialog_token'>{{ title }}</span>?</span></strong>
                 <a id='delete_dialog_cancel' href='#' class='submit'>Cancel</a>
                 <input type='submit' class='delete' value='Delete' />
-                <input name='id' type='hidden' value='{{ id }}' />
+                <input name='bid' type='hidden' value='{{ bid }}' />
             </form>
         </div>
     </div>    

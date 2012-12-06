@@ -4,7 +4,7 @@
     <div id='list'>
         <h2>Boards<small><a href='{{ url_for('new') }}'>+ Create Board</a></small></h2>
         {% for board in boards %}
-            <a href='/play/{{ board.id }}' class='board'>
+            <a href='{{ url_for('play', bid=board.bid) }}' class='board'>
                 <strong class='title'>{{ board.title }}</strong>
                 <span class='template_wrapper'><span class='template'>{{ board.template }}</span></span>
             </a>
