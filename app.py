@@ -117,8 +117,7 @@ def index():
 @app.route('/boards')
 def boards():
     boards = []
-    boards_query = Board.query.all()
-    boards_query.reverse()
+    boards_query = Board.query.order_by(Board.bid.desc()).all()
     for board in boards_query:
         boards.append(dict(bid=board.bid, title=board.title, template=board.template))
     return render_template('list.jhtml', boards=boards)
