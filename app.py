@@ -141,7 +141,7 @@ def logout():
 @app.route('/new')
 @login_required
 def new():
-    return render_template('new.jhtml', uid=current_user.uid)
+    return render_template('new.jhtml', uid=current_user.get_id())
 
 
 @app.route('/add', methods=['POST'])
@@ -168,7 +168,7 @@ def edit(bid):
     board_query = Board.query.get(bid)
     title = board_query.title.upper()
     template = board_query.template
-    viewer_uid = current_user.uid
+    viewer_uid = current_user.get_id()
     board_uid = board_query.uid
     if viewer_uid == board_uid:
         return render_template('edit.jhtml', bid=bid, title=title, template=template)
@@ -204,7 +204,7 @@ def play(bid):
     board_query = Board.query.get(bid)
     title = board_query.title.upper()
     template = convert_template(format_template(board_query.template))
-    viewer_uid = current_user.uid
+    viewer_uid = current_user.get_id()
     board_uid = board_query.uid
     show_edit = True
     if viewer_uid != board_uid:
