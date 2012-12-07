@@ -71,6 +71,9 @@ board {
             font-size: 12px;
             letter-spacing: 2px;
         }
+        #board_title a {
+            color: #999;
+        }
 
 tile {
     float: left;
