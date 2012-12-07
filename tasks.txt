@@ -4,10 +4,6 @@
 
 === Future
 
-# General
-
-[ ] Get the code up on GitHub
-
 # Bugs
 
 # Level Editor
@@ -25,14 +21,19 @@
 # UI
 
 [ ] Browse by author
-[ ] Add success and error flashes throughout
+[-] Add success and error flashes throughout
+    x Implement flashes
     - Good login
-    - Bad login
+    x Bad login
     - Not owner
     - Bad board creation
 [ ] Save play sessions
+[ ] Share boards
+    - Tweet on victory/loss
 
 === Done
+
+[x] Get the code up on GitHub
 
 # Bugs
 

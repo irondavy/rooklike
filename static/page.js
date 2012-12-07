@@ -1,5 +1,13 @@
 $(document).ready(function() {
 
+    $('.flashes')
+        .fadeIn()
+        .click(function() {
+            $(this).fadeOut();
+        })
+        .delay(5000)
+        .fadeOut();
+
     if ($('#list').length) {
 
         $('.board').each(function() {

@@ -16,6 +16,16 @@
         <a href="/">Rooklike</a>
     </h1>
 
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class='flashes'>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
     <span class='back'><a href='{{ url_for('boards') }}'><span class='icon rotated'>]</span> Boards</a></span>
     <span class='forwards'>
         <a href='{{ url_for('fork', bid=bid) }}'><span class='icon'>o</span> Fork</a>

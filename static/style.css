@@ -518,6 +518,29 @@ piece {
             }
     }
 
+.flashes {
+    width: 400px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 10px 10px 8px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #666;
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    margin-left: -200px;
+    z-index: 50;
+    font-style: italic;
+    display: none;
+}
+    .flashes:hover {
+        cursor: pointer;
+    }
+    .flashes li {
+        list-style-type: none;
+    }
+
 .dialog {
     background: hsla(0, 0%, 10%, .95);
     position: fixed;

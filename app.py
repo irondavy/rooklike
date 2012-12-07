@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, url_for, render_template, session
+from flask import Flask, request, redirect, url_for, render_template, session, flash
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_heroku import Heroku
 from flask.ext.login import LoginManager, current_user, login_required, login_user, logout_user
@@ -87,6 +87,7 @@ def get_twitter_token(token=None):
 def oauth_authorized(resp):
     next_url = request.args.get('next') or url_for('index')
     if resp is None:
+        flash('There was a problem with your Twitter authentication.')
         return redirect(url_for('index'))
 
     session['twitter_token'] = (
@@ -145,6 +146,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
+    flash('You\'ve been logged out.')
     return redirect(url_for("index"))
 
 
