@@ -177,6 +177,8 @@ def fork(bid):
     title = board_query.title.upper()
     if title[-7:] == 'REMIXED':
         title = title[:-5] + 'REMIXED'
+    else:
+        title = title + ' REMIXED'
     template = board_query.template
     viewer_uid = current_user.get_id()
     board_uid = board_query.uid

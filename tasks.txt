@@ -8,7 +8,6 @@
 
 # Level Editor
 
-[ ] Allow for forking of boards
 
 # AI
 
@@ -49,6 +48,7 @@
 [x] Delete existing levels[x] Accommodate even numbered dimensions
 [x] Validate levels
 [x] Twitter user auth http://packages.python.org/Flask-OAuth/
+[x] Allow for forking of boards
 
 # AI
 
