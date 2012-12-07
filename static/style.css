@@ -534,9 +534,6 @@ piece {
     font-style: italic;
     display: none;
 }
-    .flashes:hover {
-        cursor: pointer;
-    }
     .flashes li {
         list-style-type: none;
     }

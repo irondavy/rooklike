@@ -21,12 +21,6 @@
 # UI
 
 [ ] Browse by author
-[-] Add success and error flashes throughout
-    x Implement flashes
-    - Good login
-    x Bad login
-    - Not owner
-    - Bad board creation
 [ ] Save play sessions
 [ ] Share boards
     - Tweet on victory/loss
@@ -71,4 +65,10 @@
 [x] Responsive UI
 [x] Add author credits to board page
 [x] Find new icons for mobile safari
+[x] Add success and error flashes throughout
+    x Implement flashes
+    x Good login
+    x Bad login
+    x Not owner
+    x Bad board creation
 

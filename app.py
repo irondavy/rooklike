@@ -55,6 +55,7 @@ app.secret_key = os.environ.get('APP_SECRET_KEY')
 
 login_manager = LoginManager()
 login_manager.login_view = 'login'
+login_manager.login_message = None
 
 @login_manager.user_loader
 def load_user(uid):
@@ -87,7 +88,6 @@ def get_twitter_token(token=None):
 def oauth_authorized(resp):
     next_url = request.args.get('next') or url_for('index')
     if resp is None:
-        flash('There was a problem with your Twitter authentication.')
         return redirect(url_for('index'))
 
     session['twitter_token'] = (
@@ -146,7 +146,6 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    flash('You\'ve been logged out.')
     return redirect(url_for("index"))
 
 
@@ -169,6 +168,7 @@ def add():
         board_query = Board.query.filter_by(uid = uid).order_by(Board.bid.desc()).first()
         return redirect(url_for('play', bid=board_query.bid))
     else:
+        flash('There was a problem with the formatting of your board.')
         return redirect(url_for('boards'))
 
 
@@ -183,6 +183,7 @@ def edit(bid):
     if viewer_uid == board_uid:
         return render_template('edit.jhtml', bid=bid, title=title, template=template)
     else:
+        flash('You are not the owner of this board.')
         return redirect(url_for('play', bid=bid))
 
 
