@@ -416,7 +416,9 @@ function playBlack() {
 }
 
 function playNextBlackPiece() {
-    var piece = $('piece.unplayed').filter('[color=black]').first();
+    var pieces_left = $('piece.unplayed').filter('[color=black]').length;
+    var random = Math.floor(Math.random()*pieces_left);
+    var piece = $('piece.unplayed').eq(random);
     if (piece.length) {
         checkSquares(piece, false);
 
