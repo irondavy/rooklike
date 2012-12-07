@@ -150,7 +150,8 @@ def add():
         board = Board(title, uid, template)
         db.session.add(board)
         db.session.commit()
-        return redirect(url_for('boards'))
+        board_query = Board.query.filter_by(uid = uid).order_by(Board.bid.desc()).first()
+        return redirect(url_for('play', bid=board_query.bid))
     else:
         return redirect(url_for('boards'))
 
