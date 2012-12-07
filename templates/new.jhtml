@@ -8,14 +8,14 @@
             <h2>Create Board</h2>
             <div id='title'>
                 <div id='title_counter' class='char_counter'></div>
-                <input name='title' placeholder='Title'>
+                <input name='title' placeholder='TITLE'>
             </div>
             <div id='template'>
                 {% include 'instructions.jhtml' %}
                 <div id='error'>There was a problem with your template.</div>
                 <div id='template_textarea'>
                     <div id='template_counter' class='char_counter'></div>
-                    <textarea name='template' placeholder='Template'></textarea>
+                    <textarea name='template' placeholder='TEMPLATE'></textarea>
                 </div>
             </div>
             <div id='buttons'>

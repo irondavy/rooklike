@@ -12,14 +12,14 @@
             {% endif %}
             <div id='title'>
                 <div id='title_counter' class='char_counter'></div>
-                <input name='title' placeholder='Title' value='{{ title }}'>
+                <input name='title' placeholder='TITLE' value='{{ title }}'>
             </div>
             <div id='template'>
                 {% include 'instructions.jhtml' %}
                 <div id='error'>There was a problem with your template.</div>
                 <div id='template_textarea'>
                     <div id='template_counter' class='char_counter'></div>
-                    <textarea name='template' placeholder='Template'>{{ template }}</textarea>
+                    <textarea name='template' placeholder='TEMPLATE'>{{ template }}</textarea>
                 </div>
                 <input name='bid' type='hidden' value='{{ bid }}' />
                 {% if fork %}
