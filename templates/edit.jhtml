@@ -11,7 +11,7 @@
                 <h2>Edit Board</h2>
             {% endif %}
             <div id='title'>
-                <div id='title_chars'>40</div>
+                <div id='title_chars'>30</div>
                 <input name='title' placeholder='Title' value='{{ title }}'>
             </div>
             <div id='template'>

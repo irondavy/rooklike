@@ -1,13 +1,12 @@
 === Next
 
-[ ] Add author credits to board page
+[ ] Validate board sizes
 
 === Future
 
 # Bugs
 
 # Level Editor
-
 
 # AI
 
@@ -21,6 +20,8 @@
 
 # UI
 
+[ ] Add author credits to board page
+[ ] Browse by author
 [ ] Add success and error flashes throughout
     - Good login
     - Bad login

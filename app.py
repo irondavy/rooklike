@@ -15,7 +15,7 @@ db = SQLAlchemy(app)
 
 class Board(db.Model):
     bid = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(40))
+    title = db.Column(db.String(30))
     uid = db.Column(db.Integer, db.ForeignKey('user.uid'))
     template = db.Column(db.String(1000))
 
@@ -144,7 +144,7 @@ def new():
 @login_required
 def add():
     uid = current_user.get_id()
-    title = request.form.get('title', 'Untitled')[:40]
+    title = request.form.get('title', 'Untitled')[:30]
     template = request.form['template']
     if validate_template(format_template(template)):
         board = Board(title, uid, template)
@@ -201,7 +201,7 @@ def delete():
 @app.route('/update', methods=['POST'])
 @login_required
 def update():
-    title = request.form['title'][:40]
+    title = request.form['title'][:30]
     template = request.form['template']
     if validate_template(format_template(template)):
         if request.form.get('fork', False):

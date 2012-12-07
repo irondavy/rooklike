@@ -7,7 +7,7 @@
         <form id='edit_form' action='{{ url_for('add') }}' method='post' autocomplete='off'>
             <h2>Create Board</h2>
             <div id='title'>
-                <div id='title_chars'>40</div>
+                <div id='title_chars'>30</div>
                 <input name='title' placeholder='Title'>
             </div>
             <div id='template'>
