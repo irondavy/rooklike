@@ -116,7 +116,8 @@ def boards():
     boards = []
     boards_query = Board.query.order_by(Board.bid.desc()).all()
     for board in boards_query:
-        boards.append(dict(bid=board.bid, title=board.title, template=board.template))
+        author = User.query.get(board.uid).name
+        boards.append(dict(bid=board.bid, title=board.title, author=author, template=board.template))
     return render_template('list.jhtml', boards=boards)
 
 

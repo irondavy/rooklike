@@ -5,7 +5,7 @@
         <h2>Boards<small><a href='{{ url_for('new') }}'>+ Create Board</a></small></h2>
         {% for board in boards %}
             <a href='{{ url_for('play', bid=board.bid) }}' class='board'>
-                <strong class='title'>{{ board.title }}</strong>
+                <strong class='title'>{{ board.title }}<small>by {{ board.author }}</small></strong>
                 <span class='template_wrapper'><span class='template'>{{ board.template }}</span></span>
             </a>
             {% else %}

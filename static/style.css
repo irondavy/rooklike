@@ -441,15 +441,22 @@ piece {
         letter-spacing: 2px;
         color: #999;
         border-bottom: 1px solid #555;
-        margin: 0 -10px 10px;
+        margin: 0 0 10px;
         padding: 10px;
         background: #333;
         position: relative;
         z-index: 1;
+        font-size: 14px;
     }
         #list .board:hover .title {
             color: #fff;
             border-bottom-color: #999;
+        }
+        #list .board .title small {
+            display: block;
+            margin-top: 5px;
+            font-size: 10px;
+            letter-spacing: 2px;
         }
     #list .board .template_wrapper {
         letter-spacing: .5em;
