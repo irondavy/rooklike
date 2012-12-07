@@ -180,12 +180,7 @@ def fork(bid):
     else:
         title = title + ' REMIXED'
     template = board_query.template
-    viewer_uid = current_user.get_id()
-    board_uid = board_query.uid
-    if viewer_uid == board_uid:
-        return render_template('edit.jhtml', bid=bid, title=title, template=template, fork=True)
-    else:
-        return redirect(url_for('play', bid=bid))
+    return render_template('edit.jhtml', bid=bid, title=title, template=template, fork=True)
 
 
 @app.route('/delete', methods=['POST'])
