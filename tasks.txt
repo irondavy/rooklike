@@ -1,17 +1,14 @@
 === Next
 
-[ ] Find new icons for mobile safari
-[ ] Add success and error flashes throughout
-    - Good login
-    - Bad login
-    - Not owner
-    - Bad board creation
+[ ] Add author credits to board page
 
 === Future
 
 # Bugs
 
 # Level Editor
+
+[ ] Allow for forking of boards
 
 # AI
 
@@ -20,11 +17,18 @@
 [ ] Avoid blocking captures of other pieces
 
 # Gameplay
+
 [ ] Random board generation
 
 # UI
 
+[ ] Add success and error flashes throughout
+    - Good login
+    - Bad login
+    - Not owner
+    - Bad board creation
 [ ] Save play sessions
+[ ] Find new icons for mobile safari
 
 === Done
 

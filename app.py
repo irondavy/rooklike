@@ -13,9 +13,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgres
 db = SQLAlchemy(app)
 
 
-app.secret_key = 'rj$96*0)hp_(@=4kgrtj39d@9-psqrd(_d%b!%*(#8@ds5ioao'
-
-
 class Board(db.Model):
     bid = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(20))
@@ -53,8 +50,9 @@ class User(db.Model):
         return False
 
 
-login_manager = LoginManager()
+app.secret_key = 'rj$96*0)hp_(@=4kgrtj39d@9-psqrd(_d%b!%*(#8@ds5ioao'
 
+login_manager = LoginManager()
 login_manager.login_view = 'login'
 
 @login_manager.user_loader
@@ -88,8 +86,7 @@ def get_twitter_token(token=None):
 def oauth_authorized(resp):
     next_url = request.args.get('next') or url_for('index')
     if resp is None:
-        print('You denied the request to sign in.')
-        return redirect(next_url)
+        return redirect(url_for('index'))
 
     session['twitter_token'] = (
         resp['oauth_token'],
@@ -147,10 +144,7 @@ def new():
 @login_required
 def add():
     uid = request.form['uid']
-    title = 'Untitled'
-    if request.form['title']:
-        title = request.form['title']
-    # Convert this to use .get()
+    title = request.form.get('title', 'Untitled')
     template = request.form['template']
     if validate_template(format_template(template)):
         board = Board(title, uid, template)
