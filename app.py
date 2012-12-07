@@ -15,7 +15,7 @@ db = SQLAlchemy(app)
 
 class Board(db.Model):
     bid = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(20))
+    title = db.Column(db.String(40))
     uid = db.Column(db.Integer, db.ForeignKey('user.uid'))
     template = db.Column(db.String(1000))
 
@@ -137,14 +137,14 @@ def logout():
 @app.route('/new')
 @login_required
 def new():
-    return render_template('new.jhtml', uid=current_user.get_id())
+    return render_template('new.jhtml')
 
 
 @app.route('/add', methods=['POST'])
 @login_required
 def add():
-    uid = request.form['uid']
-    title = request.form.get('title', 'Untitled')
+    uid = current_user.get_id()
+    title = request.form.get('title', 'Untitled')[:40]
     template = request.form['template']
     if validate_template(format_template(template)):
         board = Board(title, uid, template)
@@ -170,6 +170,22 @@ def edit(bid):
         return redirect(url_for('play', bid=bid))
 
 
+@app.route('/fork/<int:bid>')
+@login_required
+def fork(bid):
+    board_query = Board.query.get(bid)
+    title = board_query.title.upper()
+    if title[-7:] == 'REMIXED':
+        title = title[:-5] + 'REMIXED'
+    template = board_query.template
+    viewer_uid = current_user.get_id()
+    board_uid = board_query.uid
+    if viewer_uid == board_uid:
+        return render_template('edit.jhtml', bid=bid, title=title, template=template, fork=True)
+    else:
+        return redirect(url_for('play', bid=bid))
+
+
 @app.route('/delete', methods=['POST'])
 @login_required
 def delete():
@@ -183,13 +199,23 @@ def delete():
 @app.route('/update', methods=['POST'])
 @login_required
 def update():
-    bid = request.form['bid']
+    title = request.form['title'][:40]
     template = request.form['template']
     if validate_template(format_template(template)):
-        board = Board.query.get(bid)
-        board.title = request.form['title']
-        board.template = template
-        db.session.commit()
+        if request.form.get('fork', False):
+            uid = current_user.get_id()
+            board = Board(title, uid, template)
+            db.session.add(board)
+            db.session.commit()
+            board_query = Board.query.filter_by(uid = uid).order_by(Board.bid.desc()).first()
+            return redirect(url_for('play', bid=board_query.bid))
+        else:
+            bid = request.form['bid']
+            board = Board.query.get(bid)
+            board.title = title
+            board.template = template
+            db.session.commit()
+            return redirect(url_for('play', bid=bid))
     return redirect(url_for('play', bid=bid))
 
 

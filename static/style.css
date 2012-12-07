@@ -37,8 +37,11 @@ h1 {
     z-index: 51;
     top: 10px;
     font-size: 16px;
-    color: #666;
 }
+    .back a,
+    .forwards a {
+        color: #666;
+    }
     .back {
         left: 10px;
     }
@@ -219,6 +222,19 @@ piece {
     }
 
 #edit {}
+    #edit #title {
+        width: 480px;
+        position: relative;
+    }
+    #edit #title_chars {
+        position: absolute;
+        color: #999;
+        top: 8px;
+        right: 8px;
+    }
+        #edit #title_chars.too_long {
+            color: hsl(10, 50%, 40%);
+        }
     #edit input[name=title],
     #edit textarea[name=template] {
         background: #333;
@@ -240,6 +256,7 @@ piece {
     #edit input[name=title] {
         text-transform: uppercase;
         letter-spacing: 2px;
+        padding-right: 35px;
     }
     #edit textarea[name=template] {
         height: 480px;
@@ -344,6 +361,7 @@ piece {
             margin-left: 0;
         }
     @media screen and (max-width:800px) {
+        #edit #title,
         #edit input[name=title],
         #edit textarea[name=template] {
             width: 100%;

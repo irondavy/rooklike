@@ -66,11 +66,16 @@ $(document).ready(function() {
                     }
                 }
 
+                if ($('input[name=title]').val().length > 40) {
+                    error_states['long_title'] = true;
+                }
+
                 error_copy = {
                         'invalid_chars': 'Your template contains invalid characters.',
                         'invalid_grid': 'Each row of your template needs to be the same length.',
                         'no_white': 'Your board needs at least one white piece.',
-                        'no_black': 'Your board needs at least one black piece.'
+                        'no_black': 'Your board needs at least one black piece.',
+                        'long_title': 'Your title needs to be less than 40 characters'
                     }
 
                 error_messages = []
@@ -90,6 +95,13 @@ $(document).ready(function() {
             }
         });
 
+        $('input[name=title]').keydown(function() {
+            length = $(this).val().length;
+            $('#title_chars').html(40 - length);
+            if (length > 40) {
+                $('#title_chars').addClass('too_long');
+            }
+        });
         $('#edit [name=title]').keyup(function() {
             $('#delete_dialog strong #delete_dialog_token').text($(this).val());
         });

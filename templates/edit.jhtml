@@ -1,17 +1,27 @@
 {% extends 'layout.jhtml' %}
 {% block body %}
 
-    <a href='{{ url_for('play', bid=bid) }}' class='back'>&larr; Play</a>
+    <span class='back'><a href='{{ url_for('play', bid=bid) }}'>&larr; Play</a></span>
 
     <div id='edit'>
         <form id='edit_form' action='{{ url_for('update') }}' method='post' autocomplete='off'>
-            <h2>Edit Board</h2>
-            <input name='title' placeholder='Title' value='{{ title }}'>
+            {% if fork %}
+                <h2>Fork Board</h2>
+            {% else %}
+                <h2>Edit Board</h2>
+            {% endif %}
+            <div id='title'>
+                <div id='title_chars'>40</div>
+                <input name='title' placeholder='Title' value='{{ title }}'>
+            </div>
             <div id='template'>
                 {% include 'instructions.jhtml' %}
                 <div id='error'>There was a problem with your template.</div>
                 <textarea name='template' placeholder='Template'>{{ template }}</textarea>
                 <input name='bid' type='hidden' value='{{ bid }}' />
+                {% if fork %}
+                    <input name='fork' type='hidden' value='1' />
+                {% endif %}
             </div>
             <div id='buttons'>
                 <a id='delete' href="#">Delete</a>
