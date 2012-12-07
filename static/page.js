@@ -69,13 +69,17 @@ $(document).ready(function() {
                 if ($('input[name=title]').val().length > 40) {
                     error_states['long_title'] = true;
                 }
+                if ($('textarea[name=template]').val().length > 1000) {
+                    error_states['long_template'] = true;
+                }
 
                 error_copy = {
                         'invalid_chars': 'Your template contains invalid characters.',
                         'invalid_grid': 'Each row of your template needs to be the same length.',
                         'no_white': 'Your board needs at least one white piece.',
                         'no_black': 'Your board needs at least one black piece.',
-                        'long_title': 'Your title needs to be less than 30 characters'
+                        'long_title': 'Your title needs to be less than 30 characters.',
+                        'long_template': 'Your template needs to be less than 1000 characters.'
                     }
 
                 error_messages = []
@@ -95,15 +99,24 @@ $(document).ready(function() {
             }
         });
 
-        $('input[name=title]').keydown(function() {
-            length = $(this).val().length;
-            $('#title_chars').html(30 - length);
-            if (length > 30) {
-                $('#title_chars').addClass('too_long');
-            } else {
-                $('#title_chars').removeClass('too_long');
-            }
-        });
+        countCharacters($('input[name=title]'), $('#title_counter'), 30);
+        $('input[name=title]')
+            .keydown(function() {
+                countCharacters($(this), $('#title_counter'), 30);
+            })
+            .keyup(function() {
+                countCharacters($(this), $('#title_counter'), 30);
+            });
+
+        countCharacters($('textarea[name=template]'), $('#template_counter'), 1000);
+        $('textarea[name=template]')
+            .keydown(function() {
+                countCharacters($(this), $('#template_counter'), 1000);
+            })
+            .keyup(function() {
+                countCharacters($(this), $('#template_counter'), 1000);
+            });
+
         $('#edit [name=title]').keyup(function() {
             $('#delete_dialog strong #delete_dialog_token').text($(this).val());
         });
@@ -125,3 +138,13 @@ $(document).ready(function() {
     });
 
 });
+
+function countCharacters(input, counter, max) {
+    length = input.val().length;
+    counter.html(max - length);
+    if (length > max) {
+        counter.addClass('too_long');
+    } else {
+        counter.removeClass('too_long');
+    }
+}

@@ -222,26 +222,19 @@ piece {
     }
 
 #edit {}
-    #edit #title {
+    #edit #title,
+    #edit #template_textarea {
         width: 480px;
         position: relative;
     }
-    #edit #title_chars {
-        position: absolute;
-        color: #999;
-        top: 8px;
-        right: 8px;
-    }
-        #edit #title_chars.too_long {
-            color: hsl(10, 50%, 40%);
-        }
     #edit input[name=title],
     #edit textarea[name=template] {
         background: #333;
         border: 1px solid #555;
         display: block;
         width: 480px;
-        padding: 5px;
+        padding: 5px 35px 5px 5px;
+        white-space: nowrap;
         color: inherit;
         font: inherit;
         margin: 0 0 1em;
@@ -256,7 +249,6 @@ piece {
     #edit input[name=title] {
         text-transform: uppercase;
         letter-spacing: 2px;
-        padding-right: 35px;
     }
     #edit textarea[name=template] {
         height: 480px;
@@ -359,6 +351,15 @@ piece {
             }
         #edit #delete_dialog a.submit {
             margin-left: 0;
+        }
+    #edit .char_counter {
+        position: absolute;
+        color: #999;
+        top: 8px;
+        right: 8px;
+    }
+        #edit .char_counter.too_long {
+            color: hsl(10, 50%, 40%);
         }
     @media screen and (max-width:800px) {
         #edit #title,

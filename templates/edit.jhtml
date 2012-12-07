@@ -11,13 +11,16 @@
                 <h2>Edit Board</h2>
             {% endif %}
             <div id='title'>
-                <div id='title_chars'>30</div>
+                <div id='title_counter' class='char_counter'></div>
                 <input name='title' placeholder='Title' value='{{ title }}'>
             </div>
             <div id='template'>
                 {% include 'instructions.jhtml' %}
                 <div id='error'>There was a problem with your template.</div>
-                <textarea name='template' placeholder='Template'>{{ template }}</textarea>
+                <div id='template_textarea'>
+                    <div id='template_counter' class='char_counter'></div>
+                    <textarea name='template' placeholder='Template'>{{ template }}</textarea>
+                </div>
                 <input name='bid' type='hidden' value='{{ bid }}' />
                 {% if fork %}
                     <input name='fork' type='hidden' value='1' />

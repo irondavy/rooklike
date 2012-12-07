@@ -7,13 +7,16 @@
         <form id='edit_form' action='{{ url_for('add') }}' method='post' autocomplete='off'>
             <h2>Create Board</h2>
             <div id='title'>
-                <div id='title_chars'>30</div>
+                <div id='title_counter' class='char_counter'></div>
                 <input name='title' placeholder='Title'>
             </div>
             <div id='template'>
                 {% include 'instructions.jhtml' %}
                 <div id='error'>There was a problem with your template.</div>
-                <textarea name='template' placeholder='Template'></textarea>
+                <div id='template_textarea'>
+                    <div id='template_counter' class='char_counter'></div>
+                    <textarea name='template' placeholder='Template'></textarea>
+                </div>
             </div>
             <div id='buttons'>
                 <input id='edit_submit' type='submit' value='Create'>

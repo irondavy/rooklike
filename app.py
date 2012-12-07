@@ -145,7 +145,7 @@ def new():
 def add():
     uid = current_user.get_id()
     title = request.form.get('title', 'Untitled')[:30]
-    template = request.form['template']
+    template = request.form['template'][:1000]
     if validate_template(format_template(template)):
         board = Board(title, uid, template)
         db.session.add(board)
@@ -202,7 +202,7 @@ def delete():
 @login_required
 def update():
     title = request.form['title'][:30]
-    template = request.form['template']
+    template = request.form['template'][:1000]
     if validate_template(format_template(template)):
         if request.form.get('fork', False):
             uid = current_user.get_id()
