@@ -223,11 +223,12 @@ def play(bid):
     template = convert_template(format_template(board_query.template))
     viewer_uid = current_user.get_id()
     board_uid = board_query.uid
+    author = User.query.get(board_uid).name
     show_edit = True
     if viewer_uid and viewer_uid != board_uid:
         show_edit = False
     if template:
-        return render_template('board.jhtml', show_edit=show_edit, bid=bid, title=title, template=template)
+        return render_template('board.jhtml', show_edit=show_edit, bid=bid, title=title, author=author, template=template)
     else:
         return redirect(url_for('boards'))
 

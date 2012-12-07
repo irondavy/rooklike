@@ -66,6 +66,10 @@ board {
         position: absolute;
         display: none;
     }
+        #board_title small {
+            display: block;
+            font-size: 12px;
+        }
 
 tile {
     float: left;
