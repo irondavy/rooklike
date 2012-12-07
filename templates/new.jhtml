@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div id='buttons'>
-                <input id='edit_submit' type='submit' value='Create'>
+                <input id='edit_submit' type='submit' class='button' value='Create'>
             </div>
         </form>
     </div>    

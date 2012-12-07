@@ -1,6 +1,23 @@
 {% extends 'layout.jhtml' %}
 {% block body %}
 {% autoescape true %}
+    <span class='forwards'>
+        <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+        <a href='https://twitter.com/intent/tweet?text=@rooklike%20@irondavy%20' target='_blank'>&#64; Feedback</a>
+    </span>
+    {% if not hide_welcome %}
+        <form id='welcome' action='{{ url_for('welcome') }}' method='post'>
+            <h3>What is this?</h3>
+            <p>Rooklike is a lot like chess, with a few key exceptions:</p>
+            <ol>
+                <li>You move every single one of your pieces during your turn.</li>
+                <li>There's no such thing as a checkmate&thinsp;&mdash;&thinsp;you win by capturing every black piece.</li>
+                <li>The boards are arbitrarily sized, and can have walls which block movement.</li>
+            </ol>
+            <p>New features and tweaks are being rolled out regularly, so the above is license to change.</p>
+            <input type='submit' class='button' value='Dismiss' />
+        </form>
+    {% endif %}
     <div id='list'>
         <h2>Boards<small><a href='{{ url_for('new') }}'>+ Create Board</a></small></h2>
         {% for board in boards %}

@@ -111,6 +111,12 @@ def index():
     return redirect(url_for('boards'))
 
 
+@app.route('/welcome', methods=['POST'])
+def welcome():
+    session['hide_welcome'] = True
+    return redirect(url_for('boards'))
+
+
 @app.route('/boards')
 def boards():
     boards = []
@@ -118,7 +124,8 @@ def boards():
     for board in boards_query:
         author = User.query.get(board.uid).name
         boards.append(dict(bid=board.bid, title=board.title, author=author, template=board.template))
-    return render_template('list.jhtml', boards=boards)
+    hide_welcome = session.get('hide_welcome', False)
+    return render_template('list.jhtml', boards=boards, hide_welcome=hide_welcome)
 
 
 @app.route('/login')
