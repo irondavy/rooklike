@@ -27,8 +27,12 @@
                 {% endif %}
             </div>
             <div id='buttons'>
-                <a id='delete' href="#">Delete</a>
-                <input id='edit_submit' type='submit' value='Save'>
+                {% if fork %}
+                    <input id='edit_submit' type='submit' value='Fork'>
+                {% else %}
+                    <a id='delete' href="#">Delete</a>
+                    <input id='edit_submit' type='submit' value='Save'>
+                {% endif %}
             </div>
         </form>
         <div id='delete_dialog' class='dialog'>
