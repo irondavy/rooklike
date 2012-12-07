@@ -192,7 +192,8 @@ function movePiece(piece, tile, callback) {
                     'top': 0
                 })
                 .removeClass('unlocked')
-                .addClass('locked');
+                .addClass('locked')
+                .unbind();
             piece_selected = false;
             checkTurn();
             if (callback) {
