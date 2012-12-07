@@ -424,28 +424,21 @@ function playNextBlackPiece() {
             checkSquares($(this), true);
         });
 
-        // If there are no valid pieces, stay in position
         valid_tiles = $('.valid');
         if (valid_tiles.length == 0) {
             debugLog('Can\'t move');
             new_tile = piece.parent();
         } else {
-
-            // If there are pieces to capture, capture a random one
             piece_tiles = $('.valid').has('piece[color=white]');
             if (piece_tiles.length) {
                 debugLog('Capturing a piece.');
                 new_tile = getRandomTile(piece_tiles);
             } else {
-
-                // If there are safe tiles, go to a random one
                 safe_tiles = $('.valid').not('.dangerous');
                 if (safe_tiles.length) {
                     debugLog('Going to a safe tile.');
                     new_tile = getRandomTile(safe_tiles);
                 } else {
-
-                    // Pick a random dangerous tile
                     dangerous_tiles = $('.valid.dangerous');
                     debugLog('Going to a dangerous tile.');
                     new_tile = getRandomTile(dangerous_tiles);
@@ -512,15 +505,17 @@ function escCloseWinnerDialog(e) {
 }
 
 function showReplay() {
-    $('#replay a')
-        .click(function() {
-            location.reload();
-        })
-        .show()
-        .animate({
-            top: '+=37'
-        });
-    $(document).unbind('keyup', escCloseWinnerDialog);
+    if ($('#replay a').css('display') == 'none') {
+        $('#replay a')
+            .click(function() {
+                location.reload();
+            })
+            .show()
+            .animate({
+                top: '+=37'
+            });
+        $(document).unbind('keyup', escCloseWinnerDialog);
+    }
 }
 
 function debug() {
