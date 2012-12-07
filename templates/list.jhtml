@@ -19,7 +19,7 @@
                 <li>There's no such thing as a checkmate&thinsp;&mdash;&thinsp;you win by capturing every black piece.</li>
                 <li>The boards are arbitrarily sized, and can have walls which block movement.</li>
             </ol>
-            <p>New features and tweaks are being rolled out regularly, so the above will certainly change.</p>
+            <p>New features and tweaks are being rolled out regularly, so the above will certainly change. Try creating your own boards, or forking existing ones!</p>
             <a href='{{ url_for('unwelcome') }}' class='button' />Dismiss</a>
         </div>
     {% endif %}
