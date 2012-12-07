@@ -1,6 +1,6 @@
 === Next
 
-[ ] Validate board sizes
+
 
 === Future
 
@@ -20,7 +20,6 @@
 
 # UI
 
-[ ] Add author credits to board page
 [ ] Browse by author
 [ ] Add success and error flashes throughout
     - Good login
@@ -50,6 +49,7 @@
 [x] Validate levels
 [x] Twitter user auth http://packages.python.org/Flask-OAuth/
 [x] Allow for forking of boards
+[x] Validate board sizes
 
 # AI
 
@@ -65,3 +65,5 @@
 [x] Add back buttons
 [x] Restart after finish
 [x] Responsive UI
+[ ] Add author credits to board page
+

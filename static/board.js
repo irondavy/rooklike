@@ -123,14 +123,12 @@ function bindPieces() {
     $('piece.unlocked')
         .jrumble({ speed: 150 })
         .click(function() {
-            if (piece_selected == false) {
-                var self = $(this);
-                if (self.parent().hasClass('selected')) {
-                    deselectPiece(self);
-                } else {
-                    deselectPiece($('.selected piece'));
-                    selectPiece(self);
-                }
+            var self = $(this);
+            if (self.parent().hasClass('selected')) {
+                deselectPiece(self);
+            } else if (piece_selected == false) {
+                deselectPiece($('.selected piece'));
+                selectPiece(self);
             }
         });
 }
