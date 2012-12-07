@@ -4,6 +4,10 @@
 
 === Future
 
+# General
+
+[ ] Get the code up on GitHub
+
 # Bugs
 
 # Level Editor

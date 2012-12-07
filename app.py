@@ -9,7 +9,7 @@ from random import randint
 
 app = Flask(__name__)
 heroku = Heroku(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://localhost/rooklike')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
 
 
@@ -50,7 +50,8 @@ class User(db.Model):
         return False
 
 
-app.secret_key = 'rj$96*0)hp_(@=4kgrtj39d@9-psqrd(_d%b!%*(#8@ds5ioao'
+app.secret_key = os.environ.get('APP_SECRET_KEY')
+
 
 login_manager = LoginManager()
 login_manager.login_view = 'login'
@@ -68,8 +69,8 @@ twitter = oauth.remote_app('twitter',
     request_token_url='https://api.twitter.com/oauth/request_token',
     access_token_url='https://api.twitter.com/oauth/access_token',
     authorize_url='https://api.twitter.com/oauth/authenticate',
-    consumer_key='lZfre6Yks74x6M4RQWfxNA',
-    consumer_secret='mRltdabpGOsCciuaSSU5kqXg46f6roP1YsXbOFaM'
+    consumer_key=os.environ.get('TWITTER_KEY'),
+    consumer_secret=os.environ.get('TWITTER_SECRET')
 )
 
 
@@ -356,7 +357,7 @@ def convert_template(template):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=os.environ.get('APP_DEBUG'))
 
 
 
