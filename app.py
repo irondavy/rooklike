@@ -110,9 +110,14 @@ def oauth_authorized(resp):
 def index():
     return redirect(url_for('boards'))
 
-
-@app.route('/welcome', methods=['POST'])
+@app.route('/welcome')
 def welcome():
+    session['hide_welcome'] = False
+    return redirect(url_for('boards'))
+
+
+@app.route('/unwelcome')
+def unwelcome():
     session['hide_welcome'] = True
     return redirect(url_for('boards'))
 

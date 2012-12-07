@@ -1,7 +1,7 @@
 {% extends 'layout.jhtml' %}
 {% block body %}
 
-    <span class='back'><a href='{{ url_for('play', bid=bid) }}'>&larr; Play</a></span>
+    <span class='back'><a href='{{ url_for('play', bid=bid) }}'><span class='icon rotated'>]</span> Play</a></span>
 
     <div id='edit'>
         <form id='edit_form' action='{{ url_for('update') }}' method='post' autocomplete='off'>

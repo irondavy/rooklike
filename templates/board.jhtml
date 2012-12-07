@@ -16,12 +16,12 @@
         <a href="/">Rooklike</a>
     </h1>
 
-    <span class='back'><a href='{{ url_for('boards') }}'>&larr; Boards</a></span>
+    <span class='back'><a href='{{ url_for('boards') }}'><span class='icon rotated'>]</span> Boards</a></span>
     <span class='forwards'>
-        <a href='{{ url_for('fork', bid=bid) }}'>&harr; Fork</a>
+        <a href='{{ url_for('fork', bid=bid) }}'><span class='icon'>o</span> Fork</a>
         {% if show_edit %}
             &nbsp;&nbsp;
-            <a href='{{ url_for('edit', bid=bid) }}'>&#63490; Edit</a>
+            <a href='{{ url_for('edit', bid=bid) }}'><span class='icon'>r</span> Edit</a>
         {% endif %}
     </span>
 

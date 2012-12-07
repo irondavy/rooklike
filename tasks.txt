@@ -65,5 +65,5 @@
 [x] Add back buttons
 [x] Restart after finish
 [x] Responsive UI
-[ ] Add author credits to board page
+[x] Add author credits to board page
 

@@ -1,12 +1,17 @@
 {% extends 'layout.jhtml' %}
 {% block body %}
 {% autoescape true %}
+    {% if hide_welcome %}
+    <span class='back'>
+        <a href='{{ url_for('welcome') }}'><span class='icon'>?</span> What is this?</a>
+    </span>
+    {% endif %}
     <span class='forwards'>
         <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-        <a href='https://twitter.com/intent/tweet?text=@rooklike%20@irondavy%20' target='_blank'>&#64; Feedback</a>
+        <a href='https://twitter.com/intent/tweet?text=@rooklike%20@irondavy%20' target='_blank'><span class='icon'>b</span> Feedback</a>
     </span>
     {% if not hide_welcome %}
-        <form id='welcome' action='{{ url_for('welcome') }}' method='post'>
+        <div id='welcome'>
             <h3>What is this?</h3>
             <p>Rooklike is a lot like chess, with a few key exceptions:</p>
             <ol>
@@ -15,11 +20,11 @@
                 <li>The boards are arbitrarily sized, and can have walls which block movement.</li>
             </ol>
             <p>New features and tweaks are being rolled out regularly, so the above is license to change.</p>
-            <input type='submit' class='button' value='Dismiss' />
-        </form>
+            <a href='{{ url_for('unwelcome') }}' class='button' />Dismiss</a>
+        </div>
     {% endif %}
     <div id='list'>
-        <h2>Boards<small><a href='{{ url_for('new') }}'>+ Create Board</a></small></h2>
+        <h2>Boards<small><a href='{{ url_for('new') }}'><span class='icon'>V</span> Create Board</a></small></h2>
         {% for board in boards %}
             <a href='{{ url_for('play', bid=board.bid) }}' class='board'>
                 <strong class='title'>{{ board.title }}<small>by {{ board.author }}</small></strong>
