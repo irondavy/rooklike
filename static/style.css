@@ -1,12 +1,23 @@
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,audio,canvas,details,figcaption,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,summary,time,video{border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;margin:0;padding:0;}body{line-height:1;}article,aside,dialog,figure,footer,header,hgroup,nav,section,blockquote{display:block;}nav ul{list-style:none;}ol{list-style:decimal;}ul{list-style:disc;}ul ul{list-style:circle;}blockquote,q{quotes:none;}blockquote:before,blockquote:after,q:before,q:after{content:none;}ins{text-decoration:underline;}del{text-decoration:line-through;}mark{background:none;}abbr[title],dfn[title]{border-bottom:1px dotted #000;cursor:help;}table{border-collapse:collapse;border-spacing:0;}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0;}input,select,a img{vertical-align:middle;}
 
 @font-face {
-    font-family: 'ModernPictogramsNormal';
+    font-family: 'ModernPictograms';
     src: url('modernpics-webfont.eot');
     src: url('modernpics-webfont.eot?#iefix') format('embedded-opentype'),
          url('modernpics-webfont.woff') format('woff'),
          url('modernpics-webfont.ttf') format('truetype'),
          url('modernpics-webfont.svg#ModernPictogramsNormal') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Merida';
+    src: url('chess_merida_unicode-webfont.eot');
+    src: url('chess_merida_unicode-webfont.eot?#iefix') format('embedded-opentype'),
+         url('chess_merida_unicode-webfont.woff') format('woff'),
+         url('chess_merida_unicode-webfont.ttf') format('truetype'),
+         url('chess_merida_unicode-webfont.svg#chess_merida_unicoderegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -29,7 +40,7 @@ a {
 
 .icon {
     display: inline-block;
-    font-family: 'ModernPictogramsNormal';
+    font-family: 'ModernPictograms';
     font-size: 1.2em;
     line-height: .83;
 }
@@ -154,7 +165,7 @@ piece {
     text-align: center;
     line-height: 50px;
     font-size: 40px;
-    font-family: 'Helvetica Neue';
+    font-family: 'Merida';
     position: relative;
     z-index: 10;
 }

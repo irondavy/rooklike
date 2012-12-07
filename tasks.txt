@@ -27,7 +27,6 @@
     - Not owner
     - Bad board creation
 [ ] Save play sessions
-[ ] Find new icons for mobile safari
 
 === Done
 
@@ -66,4 +65,5 @@
 [x] Restart after finish
 [x] Responsive UI
 [x] Add author credits to board page
+[x] Find new icons for mobile safari
 
